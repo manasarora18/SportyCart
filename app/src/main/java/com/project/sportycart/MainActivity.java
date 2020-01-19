@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button toolBarBtn;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter homeAdapter;
-
+// this is manas branch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
