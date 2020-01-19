@@ -42,16 +42,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapter.HomeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeAdapter.HomeViewHolder holder,int position) {
     holder.textView1.setText(productList.get(position).getName());
 
-    Glide.with(this.context)
-            .load(productList.get(position).getImageUrl())
-            .into(holder.imageView);
+//    Glide.with(this.context)
+//            .load(productList.get(position).getImageUrl())
+//            .into(holder.imageView);
+//        holder.textView2.setText(productList.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
         return productList.size();
     }
+
 }

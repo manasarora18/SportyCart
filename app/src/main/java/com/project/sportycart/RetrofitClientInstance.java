@@ -9,7 +9,7 @@ public class RetrofitClientInstance {
     public static Retrofit getRetrofitInstance(){
         if(retrofit==null){
             retrofit=new retrofit2.Retrofit.Builder()
-                    .baseUrl("")
+                    .baseUrl("https://api.androidhive.info")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

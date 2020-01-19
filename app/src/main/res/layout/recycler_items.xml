@@ -11,7 +11,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
-
         app:layout_constraintBottom_toTopOf="@+id/coverImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,4 +29,16 @@
         app:srcCompat="@android:color/background_dark"
         android:padding="10dp"
         android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/coverImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        android:layout_margin="8dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
