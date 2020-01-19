@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Profile">
+        <menu>
+            <item android:title="MyFiles"/>
+            <item android:title="Shared"/>
+            <item android:title="Recent"/>
+            <item android:title="MyBackup"/>
+
+        </menu>
+    </item>
+    <item android:title="Categories">
+        <menu>
+            <item android:title="Cricket"/>
+            <item android:title="Football"/>
+            <item android:title="Badminton"/>
+            <item android:title="Tennis"/>
+            <item android:title="Merchandise/Fitness"/>
+
+        </menu>
+    </item>
+</menu>
