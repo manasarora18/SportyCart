@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent cartIntent=new Intent(getApplicationContext(), ViewCartActivity.class);
+                startActivity(cartIntent);
+
                 Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
                         "CART EMPTY", Snackbar.LENGTH_SHORT);
                 mySnackbar.show();
