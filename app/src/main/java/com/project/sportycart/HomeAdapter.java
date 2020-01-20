@@ -16,20 +16,23 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private List<Product> productList;
-    private Context context;
-    public HomeAdapter(Context context, List<Product>productList){
-        this.context=context;
+//    private Context context;
+    private ProductCommunication productCommunication;
+
+    public HomeAdapter(List<Product>productList,ProductCommunication productCommunication){
+//        this.context=context;
         this.productList=productList;
+        this.productCommunication=productCommunication;
     }
     public class HomeViewHolder extends RecyclerView.ViewHolder{
-        TextView textView1;
-        ImageView imageView;
+        TextView productName;
+        ImageView productImage;
 
         public HomeViewHolder(View itemView){
             super(itemView);
 
-            textView1=itemView.findViewById((R.id.textView1));
-            imageView=itemView.findViewById(R.id.coverImage);
+            this.productName=itemView.findViewById((R.id.productName));
+            this.productImage=itemView.findViewById(R.id.productImage);
         }
     }
 
@@ -42,18 +45,29 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapter.HomeViewHolder holder,int position) {
-    holder.textView1.setText(productList.get(position).getName());
+    public void onBindViewHolder(@NonNull HomeViewHolder holder,final int position) {
+    holder.productName.getRootView() .setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            productCommunication.onClick(productList.get(position));
+        }
+    });
+        holder.productName.setText(productList.get(position).getName());
 
 //    Glide.with(this.context)
 //            .load(productList.get(position).getImageUrl())
-//            .into(holder.imageView);
-//        holder.textView2.setText(productList.get(position).getPrice());
-    }
+//            .into(holder.productImage);
+//        holder.productPrice.setText(productList.get(position).getPrice());
 
+    }
     @Override
     public int getItemCount() {
         return productList.size();
     }
 
+    public interface ProductCommunication
+    {
+        void onClick(Product product);
+
+    }
 }

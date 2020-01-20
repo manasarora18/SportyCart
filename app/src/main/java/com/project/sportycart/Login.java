@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 public class Login extends AppCompatActivity {
     private static final String username="MANAS@coviam.com";
@@ -18,9 +20,17 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Button register=findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent registerIntent=new Intent(Login.this,Register.class);
+            startActivity(registerIntent);
+            }
 
-        Button button=findViewById(R.id.login);
-        button.setOnClickListener(new View.OnClickListener() {
+        });
+        Button loginButton= findViewById(R.id.login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText user=findViewById(R.id.username);
@@ -28,7 +38,6 @@ public class Login extends AppCompatActivity {
                 final String user1= String.valueOf(user.getText());
                 final String pw= String.valueOf(pass.getText());
 
-                System.out.println("Saved!");
                 SharedPreferences sharedPreferences=getSharedPreferences("login", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 editor.putString("First Name",user.getText().toString());
@@ -43,6 +52,22 @@ public class Login extends AppCompatActivity {
                 }
             }
 
+        });
+        Button loginGithub=findViewById(R.id.loginGithub);
+        loginGithub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent githubIntent= new Intent(Login.this,LoginGithub.class);
+                Toast.makeText(getApplicationContext(),"GitHubLogin",Toast.LENGTH_LONG).show();
+            }
+        });
+        Button loginFacebook=findViewById(R.id.loginFacebook);
+        loginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent facebookIntent=new Intent(Login.this,LoginFacebook.class);
+                Toast.makeText(getApplicationContext(),"FacebookLogin",Toast.LENGTH_LONG).show();
+            }
         });
     }
 }

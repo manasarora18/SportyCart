@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,11 +29,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,HomeAdapter.ProductCommunication {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Button toolBarBtn;
+    private Button toolBarButton;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter homeAdapter;
 // this is manas branch
@@ -56,12 +57,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+//        navigationView.inflateMenu(R.menu.nav_menu);
         getSupportActionBar().setTitle("SportyCart");
         toolbar.setSubtitle("Making you sporty!");
 //        toolbar.setLogo(android.R.drawable.sym_def_app_icon);
 
-        toolBarBtn = (Button)findViewById(R.id.toolbarbtn);
-        toolBarBtn.setOnClickListener(new View.OnClickListener() {
+        toolBarButton = (Button)findViewById(R.id.toolbarbtn);
+        toolBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
@@ -84,6 +86,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+    @Override
+    public void onClick(Product product) {
+        Intent intent=new Intent( MainActivity.this, ProductDetails.class);
+        intent.putExtra("Image:", (String)product.getImageUrl());
+        intent.putExtra("ProductName:",(String)product.getName());
+        intent.putExtra(("ProductDescription:"),(String)product.getDescription());
+        intent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
+        intent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
+        intent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
+        startActivity(intent);
+    }
+
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getMenuInflater();
@@ -101,16 +115,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        Toast.makeText(this, "this menu item clicked", Toast.LENGTH_SHORT).show();
+        switch(item.getItemId()) {
+            case R.id.cricket_nav_menu:
+                Intent catintent1 = new Intent(this, CategoryProducts.class);
+                catintent1.putExtra("categoryId","cricket");
+                this.startActivity(catintent1);
+                break;
+            case R.id.football_nav_menu:
+                Intent catintent2= new Intent(this,CategoryProducts.class);
+                catintent2.putExtra("categoryId","football");
+                this.startActivity(catintent2);
+                break;
+            case R.id.badminton_nav_menu:
+                Intent catintent3= new Intent(this,CategoryProducts.class);
+                catintent3.putExtra("categoryId","badminton");
+                this.startActivity(catintent3);
+                break;
+            case R.id.tennis_nav_menu:
+                Intent catintent4= new Intent(this,CategoryProducts.class);
+                catintent4.putExtra("categoryId","tennis");
+                this.startActivity(catintent4);
+                break;
+            case R.id.merchandise_nav_menu:
+                Intent catintent5= new Intent(this,CategoryProducts.class);
+                catintent5.putExtra("categoryId","merchandise");
+                this.startActivity(catintent5);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-    private void generateDataList(List<Product> body){
+    private void generateDataList(List<Product> list){
         recyclerView=findViewById(R.id.my_recycler_view);
-        homeAdapter=new HomeAdapter(this,body);
+        homeAdapter=new HomeAdapter(list,MainActivity.this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(homeAdapter);
