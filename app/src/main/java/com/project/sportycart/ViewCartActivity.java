@@ -7,6 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.project.sportycart.R;
+import com.project.sportycart.adapter.CartAdapter;
+import com.project.sportycart.entity.Product;
+import com.project.sportycart.retrofit.GetProductsService;
+import com.project.sportycart.retrofit.RetrofitClientInstance;
+
 import java.util.ArrayList;
 import java.util.List;
 

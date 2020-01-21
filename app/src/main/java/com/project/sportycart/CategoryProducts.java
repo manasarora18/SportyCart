@@ -8,6 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.project.sportycart.adapter.CategoryAdapter;
+import com.project.sportycart.entity.Product;
+import com.project.sportycart.retrofit.GetProductsService;
+import com.project.sportycart.retrofit.RetrofitClientInstance;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,7 +31,8 @@ public class CategoryProducts extends AppCompatActivity {
 
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Intent intent=getIntent();
-        String categoryId=intent.getStringExtra("CategoryId");
+        Integer categoryId=intent.getIntExtra("CategoryId",1);
+//        Integer i = Integer.parseInt(categoryId);
         Call<List<Product>> call= getProductsService.getCategoryProducts(categoryId);
         call.enqueue(new Callback<List<Product>>() {
             @Override
@@ -36,7 +42,7 @@ public class CategoryProducts extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(CategoryProducts.this,"Something's Wrong",Toast.LENGTH_LONG).show();
+                Toast.makeText(CategoryProducts.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }

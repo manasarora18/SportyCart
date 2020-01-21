@@ -2,11 +2,9 @@ package com.project.sportycart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +43,7 @@ public class Login extends AppCompatActivity {
                     final String pw = String.valueOf(pass.getText());
 
                     if (user1.length() == 0 || pw.length() == 0) {
-                        Toast.makeText(getBaseContext(), "User Not Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Enter Login Details", Toast.LENGTH_SHORT).show();
                     } else if (user1.equals(username) && pw.equals(password)) {
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putBoolean("LogInMode", true).apply();
@@ -68,7 +66,6 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
 
         Button loginGithub=findViewById(R.id.loginGithub);
         loginGithub.setOnClickListener(new View.OnClickListener() {

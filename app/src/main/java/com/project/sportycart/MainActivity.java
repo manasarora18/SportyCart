@@ -7,30 +7,30 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.SearchView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.project.sportycart.adapter.HomeAdapter;
+import com.project.sportycart.entity.Product;
+import com.project.sportycart.retrofit.GetProductsService;
+import com.project.sportycart.retrofit.RetrofitClientInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,HomeAdapter.ProductCommunication {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeAdapter.ProductCommunication {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         productintent.putExtra("ProductName",product.getName());
         productintent.putExtra(("ProductDescription"),(String)product.getDescription());
         productintent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
-        productintent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
-        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
+//        productintent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
+//        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
         startActivity(productintent);
     }
 
@@ -146,27 +146,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId()) {
             case R.id.cricket_nav_menu:
                 Intent catintent1 = new Intent(this, CategoryProducts.class);
-                catintent1.putExtra("categoryId","cricket");
+                catintent1.putExtra("categoryId",2);
                 this.startActivity(catintent1);
                 break;
             case R.id.football_nav_menu:
                 Intent catintent2= new Intent(this,CategoryProducts.class);
-                catintent2.putExtra("categoryId","football");
+                catintent2.putExtra("categoryId",3);
                 this.startActivity(catintent2);
                 break;
             case R.id.badminton_nav_menu:
                 Intent catintent3= new Intent(this,CategoryProducts.class);
-                catintent3.putExtra("categoryId","badminton");
+                catintent3.putExtra("categoryId",4);
                 this.startActivity(catintent3);
                 break;
             case R.id.tennis_nav_menu:
                 Intent catintent4= new Intent(this,CategoryProducts.class);
-                catintent4.putExtra("categoryId","tennis");
+                catintent4.putExtra("categoryId",5);
                 this.startActivity(catintent4);
                 break;
             case R.id.merchandise_nav_menu:
                 Intent catintent5= new Intent(this,CategoryProducts.class);
-                catintent5.putExtra("categoryId","merchandise");
+                catintent5.putExtra("categoryId","5e26d3bf88dbc0e067191564");
                 this.startActivity(catintent5);
                 break;
             default:
