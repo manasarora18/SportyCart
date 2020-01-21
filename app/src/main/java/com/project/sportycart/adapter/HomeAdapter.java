@@ -9,21 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.project.sportycart.R;
 import com.project.sportycart.entity.Product;
-
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private List<Product> productList;
-    private Context context;
     private ProductCommunication productCommunication;
 
     public HomeAdapter(List<Product>productList,ProductCommunication productCommunication){
-//        this.context=context;
         this.productList=productList;
         this.productCommunication=productCommunication;
     }
+
     public class HomeViewHolder extends RecyclerView.ViewHolder{
         TextView productName;
         ImageView productImage;
@@ -54,9 +53,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     });
         holder.productName.setText(productList.get(position).getName());
 
-//    Glide.with(this.context)
-//            .load(productList.get(position).getImageUrl())
-//            .into(holder.productImage);
+    Glide.with(holder.productImage.getContext())
+            .load(productList.get(position).getImageUrl())
+            .into(holder.productImage);
 //        holder.productPrice.setText(productList.get(position).getPrice());
 
     }
@@ -65,9 +64,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         return productList.size();
     }
 
-    public interface ProductCommunication
-    {
+    public interface ProductCommunication {
         void onClick(Product product);
-
     }
 }

@@ -4,19 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductAttributes{
 
-	@SerializedName("Company")
-	private String company;
-
-	@SerializedName("Color")
+	@SerializedName("color")
 	private String color;
 
-	public void setCompany(String company){
-		this.company = company;
-	}
+	@SerializedName("material")
+	private String material;
 
-	public String getCompany(){
-		return company;
-	}
+	@SerializedName("size")
+	private String size;
 
 	public void setColor(String color){
 		this.color = color;
@@ -26,12 +21,29 @@ public class ProductAttributes{
 		return color;
 	}
 
+	public void setMaterial(String material){
+		this.material = material;
+	}
+
+	public String getMaterial(){
+		return material;
+	}
+
+	public void setSize(String size){
+		this.size = size;
+	}
+
+	public String getSize(){
+		return size;
+	}
+
 	@Override
  	public String toString(){
 		return 
 			"ProductAttributes{" + 
-			"company = '" + company + '\'' + 
-			",color = '" + color + '\'' + 
+			"color = '" + color + '\'' + 
+			",material = '" + material + '\'' + 
+			",size = '" + size + '\'' + 
 			"}";
 		}
 }

@@ -14,23 +14,21 @@ import com.project.sportycart.R;
 import com.project.sportycart.entity.Product;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    private List<Product> productList;
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
+    List<Product> searchList;
     private Context context;
     private ProductCommunication productCommunication;
 
-
-    public CategoryAdapter(List<Product>productList, ProductCommunication productCommunication){
+    public SearchAdapter(List<Product>searchList, ProductCommunication productCommunication){
 //        this.context=context;
-        this.productList=productList;
+        this.searchList=searchList;
         this.productCommunication=productCommunication;
-
     }
-    public class CategoryViewHolder extends RecyclerView.ViewHolder{
+    public class SearchViewHolder extends RecyclerView.ViewHolder{
         TextView productName;
         ImageView productImage;
 
-        public CategoryViewHolder(View itemView){
+        public SearchViewHolder(View itemView){
             super(itemView);
             this.productName=itemView.findViewById((R.id.productName));
             this.productImage=itemView.findViewById(R.id.productImage);
@@ -38,41 +36,39 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
     @NonNull
     @Override
-    public CategoryAdapter.CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
         View view=layoutInflater.inflate(R.layout.recycler_items,parent,false);
-        return new CategoryViewHolder(view);
+        return new SearchViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder,final int position) {
+    public void onBindViewHolder(@NonNull SearchViewHolder holder, final int position) {
 
         holder.productName.getRootView() .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                productCommunication.onClick(productList.get(position));
+                productCommunication.onClick(searchList.get(position));
             }
         });
-        Product product=productList.get(position);
-        if(product!=null) {
-            holder.productName.setText(product.getName());
-        }
-        else{
-            System.out.println("NULL FOUND");
-        }
+        holder.productName.setText(searchList.get(position).getName());
 
         Glide.with(holder.productImage.getContext())
-                .load(productList.get(position).getImageUrl())
+                .load(searchList.get(position).getImageUrl())
                 .into(holder.productImage);
 //        holder.productPrice.setText(productList.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        if (searchList != null) {
+            return searchList.size();
+        } else {
+            return 0;
+        }
     }
 
-    public interface ProductCommunication{
+    public interface ProductCommunication {
         void onClick(Product product);
     }
 }

@@ -7,25 +7,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.SearchView;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.adapter.HomeAdapter;
 import com.project.sportycart.entity.Product;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     private RecyclerView.Adapter homeAdapter;
     private SearchView searchView;
+    private HomeAdapter.ProductCommunication productCommunication;
     // this is manas branch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +73,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mySnackbar.show();
             }
         });
+
         searchView=findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Intent intent= new Intent(MainActivity.this,SearchResults.class);
+                Toast.makeText(getApplicationContext(),query.toString(),Toast.LENGTH_LONG).show();
+                Intent searchIntent=new Intent(MainActivity.this,SearchResults.class);
+                searchIntent.putExtra("searchKey",query);
+                startActivity(searchIntent);
                 return true;
             }
 
@@ -90,20 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-////                Toast.makeText(getApplicationContext(),query.toString(),Toast.LENGTH_LONG).show();
-//                Intent searchIntent=new Intent(MainActivity.this,SearchResults.class);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-////                Intent intent= new Intent(MainActivity.this,SearchResults.class);
-//                return false;
-//            }
-//        });
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Call<List<Product>> call= getProductsService.getAllProducts();
         call.enqueue(new Callback<List<Product>>() {
@@ -122,11 +108,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void generateDataList(List<Product> list){
         recyclerView=findViewById(R.id.my_recycler_view);
+        Product product;
         homeAdapter=new HomeAdapter(list,MainActivity.this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(homeAdapter);
     }
+
     @Override
     public void onClick(Product product) {
         Intent productintent=new Intent( MainActivity.this, ProductDetails.class);
@@ -138,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
         startActivity(productintent);
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -166,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.merchandise_nav_menu:
                 Intent catintent5= new Intent(this,CategoryProducts.class);
-                catintent5.putExtra("categoryId","5e26d3bf88dbc0e067191564");
+                catintent5.putExtra("categoryId",1);
                 this.startActivity(catintent5);
                 break;
             default:

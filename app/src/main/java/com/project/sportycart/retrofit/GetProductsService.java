@@ -16,4 +16,7 @@ public interface GetProductsService {
     @GET("/product/showProducts/{categoryId}")
     Call<List<Product>> getCategoryProducts(@Path("categoryId") Integer categoryId);
 
+    @GET("/search/{str}")
+    Call<List<Product>> getSearchData(@Path("str")String str);
+
 }

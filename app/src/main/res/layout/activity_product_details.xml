@@ -11,8 +11,8 @@
 
     <TextView
         android:id="@+id/merchantDetails"
-        android:layout_width="136dp"
-        android:layout_height="27dp"
+        android:layout_width="153dp"
+        android:layout_height="41dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="96dp"
@@ -54,12 +54,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="143dp"
-        android:layout_height="39dp"
+        android:layout_width="248dp"
+        android:layout_height="48dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-black"
         android:text="Name"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -71,15 +72,15 @@
 
     <ImageView
         android:id="@+id/productimage"
-        android:layout_width="177dp"
-        android:layout_height="267dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="174dp"
+        android:layout_height="261dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toStartOf="@+id/addToCart"
-        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -106,11 +107,14 @@
         android:layout_marginTop="180dp"
         android:layout_marginEnd="56dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="monospace"
         android:text="Add to Cart"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/productimage"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.523" />
 
     <TextView
         android:id="@+id/colorAttribute"
@@ -128,13 +132,15 @@
 
     <TextView
         android:id="@+id/bestPrice"
-        android:layout_width="127dp"
-        android:layout_height="29dp"
+        android:layout_width="148dp"
+        android:layout_height="45dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="96dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="BestPrice"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/merchantDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
