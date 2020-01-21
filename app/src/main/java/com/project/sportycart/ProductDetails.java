@@ -16,25 +16,29 @@ public class ProductDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
-        Intent intent=getIntent();
+        Intent productIntent=getIntent();
 
-        String imageUrl=intent.getStringExtra("Image");
+        String imageUrl=productIntent.getStringExtra("Image");
         ImageView imageView=findViewById(R.id.productimage);
         Glide.with(getBaseContext()).load(imageUrl).into(imageView);
 
-        String productName=intent.getStringExtra("ProductName");
+        String productName=productIntent.getStringExtra("ProductName");
         TextView title=findViewById(R.id.title);
         title.setText(productName);
 
-        String color=intent.getStringExtra("ColorAttribute");
+        String productDescription=productIntent.getStringExtra("ProductDescription");
+        TextView description=findViewById(R.id.description);
+        description.setText(productDescription);
+
+        String color=productIntent.getStringExtra("ColorAttribute");
         TextView colorText=findViewById(R.id.colorAttribute);
         colorText.setText(color);
 
-        String size=intent.getStringExtra("SizeAttribute");
+        String size=productIntent.getStringExtra("SizeAttribute");
         TextView sizeText=findViewById(R.id.sizeAttribute);
         sizeText.setText(size);
 
-        String material=intent.getStringExtra("MaterialAttribute");
+        String material=productIntent.getStringExtra("MaterialAttribute");
         TextView materialText=findViewById(R.id.materialAttribute);
         materialText.setText(material);
 

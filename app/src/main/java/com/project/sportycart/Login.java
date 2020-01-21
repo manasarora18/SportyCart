@@ -16,6 +16,9 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
     private static final String username="MANAS@coviam.com";
     private static final String password="1234";
+    SharedPreferences sp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,30 +32,44 @@ public class Login extends AppCompatActivity {
             }
 
         });
+
         Button loginButton= findViewById(R.id.login);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText user=findViewById(R.id.username);
-                EditText pass=findViewById(R.id.password);
-                final String user1= String.valueOf(user.getText());
-                final String pw= String.valueOf(pass.getText());
+        sp=getSharedPreferences("LoginData",MODE_PRIVATE);
+        if(!sp.getBoolean("LogInMode",false)) {
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EditText user = findViewById(R.id.username);
+                    EditText pass = findViewById(R.id.password);
+                    final String user1 = String.valueOf(user.getText());
+                    final String pw = String.valueOf(pass.getText());
 
-                SharedPreferences sharedPreferences=getSharedPreferences("login", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                editor.putString("First Name",user.getText().toString());
-                editor.commit();
+                    if (user1.length() == 0 || pw.length() == 0) {
+                        Toast.makeText(getBaseContext(), "User Not Found", Toast.LENGTH_SHORT).show();
+                    } else if (user1.equals(username) && pw.equals(password)) {
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putBoolean("LogInMode", true).apply();
+                        editor.putString("User", user1).apply();
+                        editor.commit();
 
-                if(user1.equals(username) && pw.equals(password)) {
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Sorry! Wrong user", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"Sorry! Wrong user",Toast.LENGTH_LONG).show();
-                }
-            }
 
-        });
+            });
+        }
+
+        else {
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
         Button loginGithub=findViewById(R.id.loginGithub);
         loginGithub.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +78,7 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"GitHubLogin",Toast.LENGTH_LONG).show();
             }
         });
+
         Button loginFacebook=findViewById(R.id.loginFacebook);
         loginFacebook.setOnClickListener(new View.OnClickListener() {
             @Override

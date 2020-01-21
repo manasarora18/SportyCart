@@ -6,17 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private List<Product> productList;
-//    private Context context;
+    private Context context;
     private ProductCommunication productCommunication;
 
     public HomeAdapter(List<Product>productList,ProductCommunication productCommunication){

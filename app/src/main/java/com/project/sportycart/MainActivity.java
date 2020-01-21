@@ -3,12 +3,10 @@ package com.project.sportycart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,12 +15,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.SearchView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,10 +34,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Button toolBarButton;
+    private Button cartToolbarButton;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter homeAdapter;
-// this is manas branch
+    private SearchView searchView;
+    // this is manas branch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
+
 
         ActionBarDrawerToggle actionBarDrawerToggle=new ActionBarDrawerToggle(
                 this,
@@ -57,13 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-//        navigationView.inflateMenu(R.menu.nav_menu);
         getSupportActionBar().setTitle("SportyCart");
         toolbar.setSubtitle("Making you sporty!");
+
 //        toolbar.setLogo(android.R.drawable.sym_def_app_icon);
 
-        toolBarButton = (Button)findViewById(R.id.toolbarbtn);
-        toolBarButton.setOnClickListener(new View.OnClickListener() {
+        cartToolbarButton = (Button)findViewById(R.id.carttoolbarbtn);
+        cartToolbarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
@@ -71,7 +74,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mySnackbar.show();
             }
         });
+        searchView=findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent= new Intent(MainActivity.this,SearchResults.class);
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+////                Toast.makeText(getApplicationContext(),query.toString(),Toast.LENGTH_LONG).show();
+//                Intent searchIntent=new Intent(MainActivity.this,SearchResults.class);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+////                Intent intent= new Intent(MainActivity.this,SearchResults.class);
+//                return false;
+//            }
+//        });
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Call<List<Product>> call= getProductsService.getAllProducts();
         call.enqueue(new Callback<List<Product>>() {
@@ -82,36 +111,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Something's Wrong",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
+
+
+    private void generateDataList(List<Product> list){
+        recyclerView=findViewById(R.id.my_recycler_view);
+        homeAdapter=new HomeAdapter(list,MainActivity.this);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(homeAdapter);
+    }
     @Override
     public void onClick(Product product) {
-        Intent intent=new Intent( MainActivity.this, ProductDetails.class);
-        intent.putExtra("Image:", (String)product.getImageUrl());
-        intent.putExtra("ProductName:",(String)product.getName());
-        intent.putExtra(("ProductDescription:"),(String)product.getDescription());
-        intent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
-        intent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
-        intent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
-        startActivity(intent);
+        Intent productintent=new Intent( MainActivity.this, ProductDetails.class);
+        productintent.putExtra("Image:", product.getImageUrl());
+        productintent.putExtra("ProductName",product.getName());
+        productintent.putExtra(("ProductDescription"),(String)product.getDescription());
+        productintent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
+        productintent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
+        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
+        startActivity(productintent);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.search_menu, menu);
-//        SearchManager searchManager =
-//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView =
-//                (SearchView) menu.findItem(R.id.search).getActionView();
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getComponentName()));
-//
-//        return true;
-//
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -150,13 +174,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-    private void generateDataList(List<Product> list){
-        recyclerView=findViewById(R.id.my_recycler_view);
-        homeAdapter=new HomeAdapter(list,MainActivity.this);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(homeAdapter);
     }
 }

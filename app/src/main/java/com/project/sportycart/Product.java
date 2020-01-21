@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class Product{
 
 	@SerializedName("noOfSoldUnits")
-	private int noOfSoldUnits;
+	private String noOfSoldUnits;
 
 	@SerializedName("productId")
-	private int productId;
+	private String productId;
 
 	@SerializedName("productAttributes")
 	private ProductAttributes productAttributes;
@@ -23,27 +23,27 @@ public class Product{
 	private String description;
 
 	@SerializedName("totalStock")
-	private int totalStock;
+	private String totalStock;
 
 	@SerializedName("productRating")
-	private int productRating;
+	private String productRating;
 
 	@SerializedName("categoryId")
-	private int categoryId;
+	private String categoryId;
 
-	public void setNoOfSoldUnits(int noOfSoldUnits){
+	public void setNoOfSoldUnits(String noOfSoldUnits){
 		this.noOfSoldUnits = noOfSoldUnits;
 	}
 
-	public int getNoOfSoldUnits(){
+	public String getNoOfSoldUnits(){
 		return noOfSoldUnits;
 	}
 
-	public void setProductId(int productId){
+	public void setProductId(String productId){
 		this.productId = productId;
 	}
 
-	public int getProductId(){
+	public String getProductId(){
 		return productId;
 	}
 
@@ -79,27 +79,27 @@ public class Product{
 		return description;
 	}
 
-	public void setTotalStock(int totalStock){
+	public void setTotalStock(String totalStock){
 		this.totalStock = totalStock;
 	}
 
-	public int getTotalStock(){
+	public String getTotalStock(){
 		return totalStock;
 	}
 
-	public void setProductRating(int productRating){
+	public void setProductRating(String productRating){
 		this.productRating = productRating;
 	}
 
-	public int getProductRating(){
+	public String getProductRating(){
 		return productRating;
 	}
 
-	public void setCategoryId(int categoryId){
+	public void setCategoryId(String categoryId){
 		this.categoryId = categoryId;
 	}
 
-	public int getCategoryId(){
+	public String getCategoryId(){
 		return categoryId;
 	}
 
