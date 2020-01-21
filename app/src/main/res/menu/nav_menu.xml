@@ -2,21 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Profile">
         <menu>
-            <item android:title="MyFiles"/>
-            <item android:title="Shared"/>
-            <item android:title="Recent"/>
-            <item android:title="MyBackup"/>
-
+            <item android:title="My Details"/>
+            <item android:title="My Orders"/>
+            <item android:title="Logout"/>
         </menu>
     </item>
     <item android:title="Categories">
         <menu>
-            <item android:title="Cricket"/>
-            <item android:title="Football"/>
-            <item android:title="Badminton"/>
-            <item android:title="Tennis"/>
-            <item android:title="Merchandise/Fitness"/>
 
+            <item android:title="Cricket"
+                android:id="@+id/cricket_nav_menu"/>
+            <item android:title="Football"
+                android:id="@+id/football_nav_menu"/>
+            <item android:title="Badminton"
+                android:id="@+id/badminton_nav_menu"/>
+            <item android:title="Tennis"
+                android:id="@+id/tennis_nav_menu"/>
+            <item android:title="Merchandise/Fitness"
+                android:id="@+id/merchandise_nav_menu"/>
         </menu>
     </item>
+
 </menu>
