@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         cartToolbarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent cartIntent=new Intent(getApplicationContext(), ViewCartActivity.class);
+                startActivity(cartIntent);
+
                 Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
                         "CART EMPTY", Snackbar.LENGTH_SHORT);
                 mySnackbar.show();
