@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SearchResults"></activity>
+        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".SearchResults" />
         <activity android:name=".CategoryProducts" />
         <activity android:name=".ProductDetails" />
         <activity android:name=".Register" />
@@ -23,8 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ViewCartActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ViewCartActivity" />
     </application>
 
 </manifest>

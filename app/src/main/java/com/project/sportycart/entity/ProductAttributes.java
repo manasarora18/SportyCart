@@ -1,4 +1,4 @@
-package com.project.sportycart;
+package com.project.sportycart.entity;
 
 import com.google.gson.annotations.SerializedName;
 

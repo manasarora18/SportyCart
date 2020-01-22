@@ -20,10 +20,10 @@
 
 
     <Button
-        android:id="@+id/checkoutButton"
+        android:id="@+id/confirmOrderButton"
         android:layout_width="379dp"
         android:layout_height="58dp"
-        android:text="Checkout"
+        android:text="Confirm Order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.486"
@@ -35,7 +35,7 @@
         android:layout_height="606dp"
         android:layout_marginBottom="16dp"
         android:padding="@dimen/cardview_default_elevation"
-        app:layout_constraintBottom_toTopOf="@+id/checkoutButton"
+        app:layout_constraintBottom_toTopOf="@+id/confirmOrderButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent" />

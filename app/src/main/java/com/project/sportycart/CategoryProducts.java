@@ -8,6 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.project.sportycart.adapter.CategoryAdapter;
+import com.project.sportycart.entity.Product;
+import com.project.sportycart.retrofit.GetProductsService;
+import com.project.sportycart.retrofit.RetrofitClientInstance;
+
 import java.util.List;
 
 import retrofit2.Call;
