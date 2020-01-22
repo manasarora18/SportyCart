@@ -11,6 +11,22 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Login">
 
+    <Button
+        android:id="@+id/skip"
+        android:layout_width="138dp"
+        android:layout_height="51dp"
+        android:layout_gravity="start"
+
+        android:layout_marginStart="118dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
+        android:enabled="true"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/skip_sign_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/register" />
+
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
@@ -18,16 +34,15 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
-
         android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-black"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password"
@@ -37,15 +52,16 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
 
+        android:fontFamily="sans-serif-black"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
         android:id="@+id/login"
@@ -56,6 +72,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
         android:enabled="true"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/action_sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +88,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:enabled="true"
-        android:text="Login via Github"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/login_via_github"
         app:layout_constraintEnd_toStartOf="@+id/loginFacebook"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
@@ -85,7 +103,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:enabled="true"
-        android:text="Login via Facebook"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/login_via_facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/loginGithub"
         app:layout_constraintTop_toBottomOf="@+id/login" />
@@ -95,15 +114,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-
         android:layout_marginStart="16dp"
         android:layout_marginEnd="240dp"
         android:layout_marginBottom="128dp"
         android:enabled="true"
-        android:text="Sign Up"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="128dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintVertical_bias="0.402" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -126,7 +160,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
-        android:text="SportyCart"
+        android:text="@string/sportycart"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#F2F14B0A"
@@ -145,10 +179,12 @@
         android:layout_marginEnd="240dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="monospace"
-        android:text="New User?"
+        android:text="@string/new_user"
         android:textColor="#2196F3"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 public class ProductDetails extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class ProductDetails extends AppCompatActivity {
         String imageUrl=productIntent.getStringExtra("Image");
         ImageView imageView=findViewById(R.id.productimage);
         Glide.with(getBaseContext()).load(imageUrl).into(imageView);
+        Picasso.with(getBaseContext()).load(imageUrl).into(imageView);
 
         String productName=productIntent.getStringExtra("ProductName");
         TextView title=findViewById(R.id.title);
@@ -49,7 +51,5 @@ public class ProductDetails extends AppCompatActivity {
 //        String merchantDetails=intent.getStringExtra("MerchantDetails");
 //        TextView merchant=findViewById(R.id.merchantDetails);
 //        merchant.setText(merchantDetails);
-
-
     }
 }

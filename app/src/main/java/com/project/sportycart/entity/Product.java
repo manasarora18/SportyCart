@@ -1,14 +1,11 @@
-package com.project.sportycart;
+package com.project.sportycart.entity;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Product{
 
 	@SerializedName("noOfSoldUnits")
-	private String noOfSoldUnits;
-
-	@SerializedName("productId")
-	private String productId;
+	private int noOfSoldUnits;
 
 	@SerializedName("productAttributes")
 	private ProductAttributes productAttributes;
@@ -22,29 +19,18 @@ public class Product{
 	@SerializedName("description")
 	private String description;
 
-	@SerializedName("totalStock")
-	private String totalStock;
-
 	@SerializedName("productRating")
-	private String productRating;
+	private int productRating;
 
 	@SerializedName("categoryId")
-	private String categoryId;
+	private int categoryId;
 
-	public void setNoOfSoldUnits(String noOfSoldUnits){
+	public void setNoOfSoldUnits(int noOfSoldUnits){
 		this.noOfSoldUnits = noOfSoldUnits;
 	}
 
-	public String getNoOfSoldUnits(){
+	public int getNoOfSoldUnits(){
 		return noOfSoldUnits;
-	}
-
-	public void setProductId(String productId){
-		this.productId = productId;
-	}
-
-	public String getProductId(){
-		return productId;
 	}
 
 	public void setProductAttributes(ProductAttributes productAttributes){
@@ -79,27 +65,19 @@ public class Product{
 		return description;
 	}
 
-	public void setTotalStock(String totalStock){
-		this.totalStock = totalStock;
-	}
-
-	public String getTotalStock(){
-		return totalStock;
-	}
-
-	public void setProductRating(String productRating){
+	public void setProductRating(int productRating){
 		this.productRating = productRating;
 	}
 
-	public String getProductRating(){
+	public int getProductRating(){
 		return productRating;
 	}
 
-	public void setCategoryId(String categoryId){
+	public void setCategoryId(int categoryId){
 		this.categoryId = categoryId;
 	}
 
-	public String getCategoryId(){
+	public int getCategoryId(){
 		return categoryId;
 	}
 
@@ -108,12 +86,10 @@ public class Product{
 		return 
 			"Product{" + 
 			"noOfSoldUnits = '" + noOfSoldUnits + '\'' + 
-			",productId = '" + productId + '\'' + 
 			",productAttributes = '" + productAttributes + '\'' + 
 			",imageUrl = '" + imageUrl + '\'' + 
 			",name = '" + name + '\'' + 
 			",description = '" + description + '\'' + 
-			",totalStock = '" + totalStock + '\'' + 
 			",productRating = '" + productRating + '\'' + 
 			",categoryId = '" + categoryId + '\'' + 
 			"}";

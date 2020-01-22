@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Profile">
+
+    <item android:title="@string/profile">
         <menu>
-            <item android:title="My Details"/>
-            <item android:title="My Orders"/>
-            <item android:title="Logout"/>
+            <item android:title="@string/my_details"/>
+            <item android:title="@string/my_orders"/>
+
         </menu>
     </item>
-    <item android:title="Categories">
-        <menu>
 
-            <item android:title="Cricket"
+    <item android:title="@string/categories">
+        <menu>
+            <item android:title="@string/cricket"
                 android:id="@+id/cricket_nav_menu"/>
-            <item android:title="Football"
-                android:id="@+id/football_nav_menu"/>
-            <item android:title="Badminton"
+            <item android:title="@string/fitness"
+                android:id="@+id/fitness_nav_menu"/>
+            <item android:title="@string/badminton"
                 android:id="@+id/badminton_nav_menu"/>
-            <item android:title="Tennis"
+            <item android:title="@string/tennis"
                 android:id="@+id/tennis_nav_menu"/>
-            <item android:title="Merchandise/Fitness"
+            <item android:title="@string/merchandise"
                 android:id="@+id/merchandise_nav_menu"/>
         </menu>
+    </item>
+    <item android:title="@string/account">
+        <menu>
+            <item android:title="@string/my_logins"/>
+            <item android:title="@string/logout"
+                android:id="@+id/logout"/>
+        </menu>
+
     </item>
 
 </menu>

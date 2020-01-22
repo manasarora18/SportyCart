@@ -1,4 +1,4 @@
-package com.project.sportycart;
+package com.project.sportycart.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.project.sportycart.R;
+import com.project.sportycart.entity.Product;
 
 import java.util.List;
 
