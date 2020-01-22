@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/userName"
-        android:layout_width="108dp"
-        android:layout_height="26dp"
+        android:layout_width="242dp"
+        android:layout_height="28dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
