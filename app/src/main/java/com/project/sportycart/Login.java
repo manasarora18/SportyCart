@@ -153,7 +153,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Intent GoogleSignIntent =new Intent(Login.this, MainActivity.class);
             GoogleSignIntent.putExtra("Email",account.getEmail());
             GoogleSignIntent.putExtra("User",account.getDisplayName());
-            GoogleSignIntent.putExtra("Image",account.getPhotoUrl());
+
             startActivity(GoogleSignIntent);
             finish();
 

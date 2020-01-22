@@ -12,4 +12,25 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="my_details">My Details</string>
+    <string name="my_orders">My Orders</string>
+    <string name="categories">Categories</string>
+    <string name="cricket">Cricket</string>
+    <string name="fitness">Fitness</string>
+    <string name="badminton">Badminton</string>
+    <string name="tennis">Tennis</string>
+    <string name="merchandise">Merchandise</string>
+    <string name="account">Account</string>
+    <string name="my_logins">My Logins</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="login_via_facebook">Login via Facebook</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="skip_sign_in">Skip Sign In</string>
+    <string name="login_via_github">Login via Github</string>
+    <string name="sportycart">SportyCart</string>
+    <string name="new_user">New User?</string>
+    <string name="size">Size</string>
+    <string name="material">Material</string>
+    <string name="merchantdetails">MerchantDetails</string>
 </resources>
