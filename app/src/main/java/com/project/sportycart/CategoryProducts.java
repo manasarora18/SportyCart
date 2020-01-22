@@ -16,20 +16,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CategoryProducts extends AppCompatActivity implements CategoryAdapter.ProductCommunication{
-
     private RecyclerView categoryRecyclerView;
     private RecyclerView.Adapter categoryAdapter;
-    private CategoryAdapter.ProductCommunication productCommunication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_products);
-
-        GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Intent intent=getIntent();
         Integer categoryId=intent.getIntExtra("categoryId",3);
-//        Integer i = Integer.parseInt(categoryId);
+
+        GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Call<List<Product>> call= getProductsService.getCategoryProducts(categoryId);
         call.enqueue(new Callback<List<Product>>() {
             @Override
@@ -39,14 +36,14 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(CategoryProducts.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void generateDataList(List<Product> body){
+    private void generateDataList(List<Product> list){
         categoryRecyclerView=findViewById(R.id.cat_recycler_view);
-        categoryAdapter=new CategoryAdapter(body,productCommunication);
+        categoryAdapter=new CategoryAdapter(list,this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
         categoryRecyclerView.setLayoutManager(gridLayoutManager);
         categoryRecyclerView.setAdapter(categoryAdapter);
@@ -54,13 +51,18 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
 
     @Override
     public void onClick(Product product) {
-        Intent productintent=new Intent( CategoryProducts.this, ProductDetails.class);
-        productintent.putExtra("Image:", product.getImageUrl());
-        productintent.putExtra("ProductName",product.getName());
-        productintent.putExtra(("ProductDescription"),(String)product.getDescription());
-        productintent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
-//        productintent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
-//        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
-        startActivity(productintent);
+        Intent productIntent=new Intent( CategoryProducts.this, ProductDetails.class);
+        productIntent.putExtra("Image", product.getImageUrl());
+        productIntent.putExtra("ProductName",product.getName());
+        productIntent.putExtra(("ProductDescription"),(String)product.getDescription());
+        if(product.getProductAttributes()!=null) {
+            productIntent.putExtra(("ColorAttribute"), (String) product.getProductAttributes().getColor());
+            productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
+            productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"NULL IN CATEGORY ATTRIBUTES",Toast.LENGTH_LONG).show();
+        }
+        startActivity(productIntent);
     }
 }

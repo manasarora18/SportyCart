@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,11 +50,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.productName.getRootView() .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                productCommunication.onClick(searchList.get(position));
+                Product product=searchList.get(position);
+                if(product!=null) {
+                    productCommunication.onClick(searchList.get(position));
+                }
+                System.out.println("NULLLLLLL IN SEARCH");
             }
         });
         holder.productName.setText(searchList.get(position).getName());
-
         Glide.with(holder.productImage.getContext())
                 .load(searchList.get(position).getImageUrl())
                 .into(holder.productImage);

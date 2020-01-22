@@ -8,24 +8,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.project.sportycart.R;
 import com.project.sportycart.entity.Product;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    private List<Product> productList;
+    List<Product> productList;
     private Context context;
     private ProductCommunication productCommunication;
 
-
     public CategoryAdapter(List<Product>productList, ProductCommunication productCommunication){
-//        this.context=context;
         this.productList=productList;
         this.productCommunication=productCommunication;
-
     }
+
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
         TextView productName;
         ImageView productImage;
@@ -36,6 +33,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             this.productImage=itemView.findViewById(R.id.productImage);
         }
     }
+
     @NonNull
     @Override
     public CategoryAdapter.CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,14 +48,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.productName.getRootView() .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                productCommunication.onClick(productList.get(position));
+                Product product = productList.get(position);
+                if (product != null) {
+                    productCommunication.onClick(productList.get(position));
+                }
+                else {
+                    System.out.println("NULL in category");
+                }
             }
         });
+
         Product product=productList.get(position);
         if(product!=null) {
             holder.productName.setText(product.getName());
         }
-        else{
+        else {
             System.out.println("NULL FOUND");
         }
 
@@ -69,7 +74,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        if(productList != null) {
+            return productList.size();
+        }
+        else{
+            return 0;
+        }
     }
 
     public interface ProductCommunication{

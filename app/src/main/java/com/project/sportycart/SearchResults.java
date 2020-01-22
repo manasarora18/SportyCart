@@ -11,7 +11,6 @@ import com.project.sportycart.entity.Product;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,7 +18,6 @@ import retrofit2.Response;
 public class SearchResults extends AppCompatActivity implements SearchAdapter.ProductCommunication {
     private RecyclerView searchRecyclerView;
     private RecyclerView.Adapter searchAdapter;
-    private SearchAdapter.ProductCommunication productCommunication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +40,30 @@ public class SearchResults extends AppCompatActivity implements SearchAdapter.Pr
             }
         });
 
-
     }
 
     private void generateDataList(List<Product> list){
         searchRecyclerView=findViewById(R.id.search_recycler_view);
-        searchAdapter=new SearchAdapter(list,productCommunication);
+        searchAdapter=new SearchAdapter(list,this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
         searchRecyclerView.setLayoutManager(gridLayoutManager);
         searchRecyclerView.setAdapter(searchAdapter);
     }
+
     @Override
     public void onClick(Product product) {
-        Intent productintent=new Intent( SearchResults.this, ProductDetails.class);
-        productintent.putExtra("Image:", product.getImageUrl());
-        productintent.putExtra("ProductName",product.getName());
-        productintent.putExtra(("ProductDescription"),(String)product.getDescription());
-        productintent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
-//        productintent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
-//        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
-        startActivity(productintent);
+        Intent productIntent=new Intent( SearchResults.this, ProductDetails.class);
+        productIntent.putExtra("Image:", product.getImageUrl());
+        productIntent.putExtra("ProductName",product.getName());
+        productIntent.putExtra(("ProductDescription"),(String)product.getDescription());
+        if (product.getProductAttributes()!=null) {
+            productIntent.putExtra(("ColorAttribute"), (String) product.getProductAttributes().getColor());
+            productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
+            productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"NULL IN ATTRIBUTES",Toast.LENGTH_LONG).show();
+        }
+        startActivity(productIntent);
     }
 }

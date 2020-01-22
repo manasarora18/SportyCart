@@ -1,6 +1,5 @@
 package com.project.sportycart.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.project.sportycart.R;
 import com.project.sportycart.entity.Product;
@@ -29,7 +27,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
         public HomeViewHolder(View itemView){
             super(itemView);
-
             this.productName=itemView.findViewById((R.id.productName));
             this.productImage=itemView.findViewById(R.id.productImage);
         }
@@ -57,11 +54,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             .load(productList.get(position).getImageUrl())
             .into(holder.productImage);
 //        holder.productPrice.setText(productList.get(position).getPrice());
-
     }
+
     @Override
     public int getItemCount() {
-        return productList.size();
+        if(productList!=null) {
+            return productList.size();
+        }
+        else {
+            return 0;
+        }
     }
 
     public interface ProductCommunication {
