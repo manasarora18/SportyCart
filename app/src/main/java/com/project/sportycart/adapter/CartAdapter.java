@@ -4,37 +4,54 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.sportycart.R;
+import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.Product;
+import com.project.sportycart.retrofit.GetCartApis;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private List<Product> cartList;
+    private List<Cart> cartList;
+    public ICartCommunicator iCartCommunicator;
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {
+
         public TextView textView;
         public ImageView imageView;
+        public TextView quantityText;
+        public ImageButton deductQuantity;
+        public ImageButton incrementQuantity;
+        int quantity = 1;
 
         public CartViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.cartProductDescription);
             imageView = v.findViewById(R.id.cartProductImage);
+            quantityText = v.findViewById(R.id.quantityText);
+            deductQuantity = v.findViewById(R.id.deductCartQuantity);
+            incrementQuantity = v.findViewById(R.id.incrementCartQuantity);
         }
+
     }
 
-    public CartAdapter(List<Product> myList) {
+    public CartAdapter(List<Cart> myList, ICartCommunicator iCartCommunicator) {
         cartList = myList;
+        this.iCartCommunicator = iCartCommunicator;
     }
 
     @Override
-    public CartAdapter.CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_layout, parent, false);
         CartViewHolder cartViewHolder = new CartViewHolder(v);
         return cartViewHolder;
@@ -42,26 +59,63 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     @Override
-    public void onBindViewHolder(CartViewHolder cartViewHolder, int position) {
-        //cartList.get(position);
+    public void onBindViewHolder(final CartViewHolder cartViewHolder, int position) {
 
-        Product dataItem = cartList.get(position);
-        Log.d("sportycart","Message:"+dataItem.getName()+"\n"+dataItem.getDescription());
-
+        final Cart dataItem = cartList.get(position);
         //Glide.with(cartViewHolder.imageView.getContext()).load(dataItem.getImageUrl().toString()).into(cartViewHolder.imageView);
 
-        cartViewHolder.textView.setText(" "+dataItem.getName().toString()+"\n"+dataItem.getDescription().toString());
-        System.out.println("Product Name:"+dataItem.getName());
+        cartViewHolder.textView.setText("Product ID: " + dataItem.getProductId()
+                + "\nPrice: " + dataItem.getPrice().toString()
+                + "\nMerchant: " + dataItem.getMerchantId());
+
+        cartViewHolder.incrementQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( Integer.parseInt(cartViewHolder.quantityText.getText().toString()) >= 0 )
+                {
+
+                    cartViewHolder.deductQuantity.setEnabled(true);
+
+                }
+                cartViewHolder.quantityText.setText(String.valueOf(Integer.parseInt(cartViewHolder.quantityText.getText().toString()) + 1));
+                dataItem.setQuantity(Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
+                iCartCommunicator.updateQuantity(dataItem.getProductId(), Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
+            }
+        });
 
 
-        //LinearLayout linearLayout = (LinearLayout) cartViewHolder.imageView.getRootView();
+        cartViewHolder.deductQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if( Integer.parseInt(cartViewHolder.quantityText.getText().toString()) == 0 )
+                {
 
+                    cartViewHolder.deductQuantity.setEnabled(false);
+
+                }
+                else {
+                    cartViewHolder.deductQuantity.setEnabled(true);
+                    cartViewHolder.quantityText.setText(String.valueOf(Integer.parseInt(cartViewHolder.quantityText.getText().toString()) - 1));
+                    dataItem.setQuantity(Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
+                    iCartCommunicator.updateQuantity(dataItem.getProductId(), Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
+                }
+
+            }
+        });
+        cartViewHolder.quantityText.setText(String.valueOf(dataItem.getQuantity()));
     }
 
     @Override
     public int getItemCount() {
-        return cartList.size();
+        if (cartList != null) {
+            return cartList.size();
+        } else {
+            return 0;
+        }
     }
 
+    public interface ICartCommunicator {
+        void updateQuantity(String productId, int quantity);
+    }
 }

@@ -59,9 +59,10 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
             productIntent.putExtra(("ColorAttribute"), (String) product.getProductAttributes().getColor());
             productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
             productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
+            productIntent.putExtra(("PID"),product.getProductId());
         }
         else{
-            Toast.makeText(getApplicationContext(),"NULL IN CATEGORY ATTRIBUTES",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"CATEGORY PRODUCT",Toast.LENGTH_SHORT).show();
         }
         startActivity(productIntent);
     }

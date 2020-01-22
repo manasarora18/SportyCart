@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
          drawerLayout=findViewById(R.id.drawer_layout);
          navigationView=findViewById(R.id.nav_view);
-//         Intent GoogleSignInIntent=getIntent();
-//         String user=GoogleSignInIntent.getStringExtra("User");
-//         String email=GoogleSignInIntent.getStringExtra("Email");
          sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
          String userSP=sharedPreferences.getString("User","");
          String emailSP=sharedPreferences.getString("Email","");
@@ -89,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         cartToolbarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cartIntent=new Intent(getApplicationContext(), ViewCartActivity.class);
-                startActivity(cartIntent);
+//                Intent cartIntent=new Intent(getApplicationContext(), ViewCartActivity.class);
+//                startActivity(cartIntent);
 
                 Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
                         "CART EMPTY", Snackbar.LENGTH_SHORT);
@@ -141,14 +138,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onClick(Product product) {
-        Intent productintent=new Intent( MainActivity.this, ProductDetails.class);
-        productintent.putExtra("Image", product.getImageUrl());
-        productintent.putExtra("ProductName",product.getName());
-        productintent.putExtra(("ProductDescription"),(String)product.getDescription());
-        productintent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
-        productintent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
-        productintent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
-        startActivity(productintent);
+        Intent productIntent=new Intent( MainActivity.this, ProductDetails.class);
+        productIntent.putExtra("Image", product.getImageUrl());
+        productIntent.putExtra("ProductName",product.getName());
+        productIntent.putExtra(("ProductDescription"),(String)product.getDescription());
+        productIntent.putExtra(("ColorAttribute"),(String)product.getProductAttributes().getColor());
+        productIntent.putExtra(("SizeAttribute"),(String)product.getProductAttributes().getSize());
+        productIntent.putExtra(("MaterialAttribute"),(String)product.getProductAttributes().getMaterial());
+        productIntent.putExtra(("PID"),product.getProductId());
+        startActivity(productIntent);
     }
 
     @Override

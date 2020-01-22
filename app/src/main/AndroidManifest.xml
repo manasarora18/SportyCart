@@ -29,8 +29,9 @@
         </activity>
 
         <activity android:name=".MainActivity"></activity>
-
-        <activity android:name=".ViewCartActivity"></activity>
+        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".ViewCartActivity" />
 
     </application>
 

@@ -53,16 +53,17 @@ public class SearchResults extends AppCompatActivity implements SearchAdapter.Pr
     @Override
     public void onClick(Product product) {
         Intent productIntent=new Intent( SearchResults.this, ProductDetails.class);
-        productIntent.putExtra("Image:", product.getImageUrl());
+        productIntent.putExtra("Image", product.getImageUrl());
         productIntent.putExtra("ProductName",product.getName());
         productIntent.putExtra(("ProductDescription"),(String)product.getDescription());
         if (product.getProductAttributes()!=null) {
             productIntent.putExtra(("ColorAttribute"), (String) product.getProductAttributes().getColor());
             productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
             productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
+            productIntent.putExtra(("PID"),product.getProductId());
         }
         else {
-            Toast.makeText(getApplicationContext(),"NULL IN ATTRIBUTES",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"SEARCHED PRODUCT",Toast.LENGTH_SHORT).show();
         }
         startActivity(productIntent);
     }

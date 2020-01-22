@@ -25,6 +25,9 @@ public class Product{
 	@SerializedName("categoryId")
 	private int categoryId;
 
+	@SerializedName("productId")
+	private String productId;
+
 	public void setNoOfSoldUnits(int noOfSoldUnits){
 		this.noOfSoldUnits = noOfSoldUnits;
 	}
@@ -36,6 +39,7 @@ public class Product{
 	public void setProductAttributes(ProductAttributes productAttributes){
 		this.productAttributes = productAttributes;
 	}
+
 
 	public ProductAttributes getProductAttributes(){
 		return productAttributes;
@@ -79,6 +83,14 @@ public class Product{
 
 	public int getCategoryId(){
 		return categoryId;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 	@Override

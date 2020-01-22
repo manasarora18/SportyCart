@@ -1,14 +1,13 @@
 package com.project.sportycart;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
+
 
 public class ProductDetails extends AppCompatActivity {
 
@@ -17,7 +16,7 @@ public class ProductDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
-        Intent productIntent=getIntent();
+        final Intent productIntent=getIntent();
 
         String imageUrl=productIntent.getStringExtra("Image");
         ImageView imageView=findViewById(R.id.productimage);
@@ -43,6 +42,34 @@ public class ProductDetails extends AppCompatActivity {
         String material=productIntent.getStringExtra("MaterialAttribute");
         TextView materialText=findViewById(R.id.materialAttribute);
         materialText.setText(material);
+        final String pid=productIntent.getStringExtra("PID");
+//
+//        Button addToCart=findViewById(R.id.addToCart);
+//        addToCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+//                Call<MerchantDetails> call= getProductsService.sendToCart(pid);
+//                call.enqueue(new Callback<List<Product>>() {
+//                    @Override
+//                    public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+//                        mercRecyclerView=findViewById(R.id.merc_recycler_view);
+//                        Product product;
+//                        homeAdapter=new HomeAdapter(list,MainActivity.this);
+//                        GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
+//                        recyclerView.setLayoutManager(gridLayoutManager);
+//                        recyclerView.setAdapter(homeAdapter);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<Product>> call, Throwable t) {
+//
+//                    }
+//                });
+//            }
+//        });
+//
 
 //        String bestPrice=intent.getStringExtra("BestPrice");
 //        TextView bestPriceText=findViewById(R.id.bestPrice);
