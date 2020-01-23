@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.sportycart.R;
+import com.project.sportycart.ViewCartActivity;
 import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.Product;
 import com.project.sportycart.retrofit.GetCartApis;
@@ -33,6 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public TextView quantityText;
         public ImageButton deductQuantity;
         public ImageButton incrementQuantity;
+        public ImageButton deleteCartItem;
         public Button confirmOrder;
         int quantity = 1;
 
@@ -44,6 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             deductQuantity = v.findViewById(R.id.deductCartQuantity);
             incrementQuantity = v.findViewById(R.id.incrementCartQuantity);
             confirmOrder=v.findViewById(R.id.confirmOrderButton);
+            deleteCartItem=v.findViewById(R.id.removeCartItem);
 
         }
 
@@ -107,7 +111,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         });
         cartViewHolder.quantityText.setText(String.valueOf(dataItem.getQuantity()));
 
-
+        //deleteCartItem = findViewById(R.id.removeCartItem);
+        cartViewHolder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iCartCommunicator.removeFromCart(dataItem.getMerchantId(),dataItem.getProductId());
+                //v.setVisibility(View.INVISIBLE);
+            }
+        });
 
     }
 
@@ -119,5 +130,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public interface ICartCommunicator {
         boolean updateQuantity(String productId, int quantity);
+        boolean removeFromCart(String merchantId,String productId);
     }
 }

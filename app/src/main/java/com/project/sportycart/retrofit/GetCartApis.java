@@ -22,6 +22,6 @@ public interface GetCartApis {
     Call<Boolean> updateCartQuantity(@Path("productId") String productId, @Path("userId") String userId, @Path("quantity") int quantity);
 
     @GET("/orderService/cart/deleteCartRow/{userId}/{merchantId}/{productId}")
-    Call<List<Cart>> deleteCartItem(@Path("userId") String userId, @Path("merchantId") String merchantId, @Path("productId") String productId);
+    Call<Boolean> deleteCartItem(@Path("userId") String userId, @Path("merchantId") String merchantId, @Path("productId") String productId);
 
 }

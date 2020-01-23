@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     GetCartApis getCartApis;
     List<Cart> dataItemList;
     public boolean flag = true;
-
+    public boolean cartFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +43,13 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         cartLayoutManager = new LinearLayoutManager(this);
 
 
-
         //all cart related apis
         //currently user id ->75
         getCartItems();
 
         //confirm order --> showing total amount of all cart items of a user
         processConfirmOrder();
+
 
     }
 
@@ -72,6 +73,27 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         });
         return flag;
 
+    }
+
+    @Override
+    public boolean removeFromCart(String merchantId, String productId) {
+        Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem("75", merchantId, productId);
+        callRemoveFromCart.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                System.out.println("Inside OnResponse RemoveFromCart");
+                cartFlag = true;
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                System.out.println("Inside OnFailure RemoveFromCart");
+                cartFlag = false;
+
+
+            }
+        });
+        return cartFlag;
     }
 
     void getCartItems() {
@@ -109,13 +131,6 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
     void processConfirmOrder() {
         Button confirmOrder = findViewById(R.id.confirmOrderButton);
-
-        //TextView quantityText = (TextView) findViewById(R.id.quantityText);
-        //System.out.println("Quantity TExt:"+quantityText.getText().toString());
-       /* if (quantityText.getText().toString().trim().equals("0")) {
-            confirmOrder.setEnabled(false);
-        } else {*/
-
         confirmOrder.setEnabled(true);
         confirmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,27 +139,23 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
                 double sum = 0;
                 for (Cart c : dataItemList) {
-                    if(c.getQuantity()==0)
-                    {
+                    if (c.getQuantity() == 0) {
                         continue;
                     }
                     sum = sum + (c.getPrice()) * c.getQuantity();
                     System.out.println(String.valueOf(sum));
                 }
 
-                if(sum>0) {
+                if (sum > 0) {
                     orderIntent.putExtra("totalAmount", String.valueOf(sum));
                     startActivity(orderIntent);
-                }
-                else
-                {
-                    Toast toast=Toast.makeText(getApplicationContext(),"Cart Empty...",Toast.LENGTH_SHORT);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Cart Empty...", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
             }
         });
-        // }
 
     }
 }
