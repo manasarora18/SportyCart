@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.adapter.ProductAdapter;
 import com.project.sportycart.entity.Cart;
