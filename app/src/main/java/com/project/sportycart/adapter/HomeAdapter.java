@@ -61,9 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         if(productList!=null) {
             return productList.size();
         }
-        else {
             return 0;
-        }
     }
 
     public interface ProductCommunication {

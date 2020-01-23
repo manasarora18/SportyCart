@@ -80,10 +80,10 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 Intent orderIntent = new Intent(getApplicationContext(), OrderActivity.class);
 
                 double sum = 0;
-                for (Cart c : dataItemList) {
-                    sum = sum + Double.parseDouble(c.getPrice()) * c.getQuantity();
-                    System.out.println(String.valueOf(sum));
-                }
+//                for (Cart c : dataItemList) {
+//                    sum = sum + Double.parseDouble(c.getPrice()) * c.getQuantity();
+//                    System.out.println(String.valueOf(sum));
+//                }
                 orderIntent.putExtra("totalAmount", String.valueOf(sum));
 
                 startActivity(orderIntent);

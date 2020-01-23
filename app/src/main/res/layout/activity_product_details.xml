@@ -10,21 +10,6 @@
 
 
     <TextView
-        android:id="@+id/merchantDetails"
-        android:layout_width="153dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="32dp"
-        android:fontFamily="sans-serif-medium"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/addToCart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/productimage"
-        app:layout_constraintTop_toBottomOf="@+id/bestPrice" />
-
-    <TextView
         android:id="@+id/sizeAttribute"
         android:layout_width="0dp"
         android:layout_height="37dp"
@@ -80,11 +65,11 @@
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="210dp"
         android:layout_marginBottom="24dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/description"
-        app:layout_constraintEnd_toStartOf="@+id/merchantDetails"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -99,25 +84,26 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:padding="10dp"
         android:text="Description"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/colorAttribute"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productimage" />
 
-    <Button
-        android:id="@+id/addToCart"
-        android:layout_width="159dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="57dp"
-        android:fontFamily="monospace"
-        android:text="Add to Cart"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/description"
-        app:layout_constraintStart_toEndOf="@+id/productimage"
-        app:layout_constraintTop_toBottomOf="@+id/merchantDetails" />
+<!--    <Button-->
+<!--        android:id="@+id/NOT IN USE"-->
+<!--        android:layout_width="159dp"-->
+<!--        android:layout_height="42dp"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="350dp"-->
+<!--        android:layout_marginBottom="56dp"-->
+<!--        android:fontFamily="monospace"-->
+<!--        android:text="Add to Cart"-->
+<!--        android:textAlignment="center"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/description"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/productimage"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.482" />-->
 
     <TextView
         android:id="@+id/colorAttribute"
@@ -135,18 +121,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
-    <TextView
-        android:id="@+id/bestPrice"
-        android:layout_width="148dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="sans-serif-medium"
-        android:text=""
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/merchantDetails"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/merc_recycler_view"
+        android:layout_width="183dp"
+        android:layout_height="219dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/productimage"
         app:layout_constraintTop_toBottomOf="@+id/title" />

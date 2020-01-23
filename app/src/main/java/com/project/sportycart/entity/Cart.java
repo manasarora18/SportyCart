@@ -14,7 +14,7 @@ public class Cart {
     private String merchantId;
 
     @SerializedName("price")
-    private String price;
+    private Double price;
 
     @SerializedName("userId")
     private String userId;
@@ -43,11 +43,11 @@ public class Cart {
         return merchantId;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 

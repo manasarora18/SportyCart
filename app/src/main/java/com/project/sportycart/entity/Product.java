@@ -40,7 +40,6 @@ public class Product{
 		this.productAttributes = productAttributes;
 	}
 
-
 	public ProductAttributes getProductAttributes(){
 		return productAttributes;
 	}

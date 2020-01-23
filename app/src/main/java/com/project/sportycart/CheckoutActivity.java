@@ -1,19 +1,15 @@
 package com.project.sportycart;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.project.sportycart.entity.Order;
 import com.project.sportycart.retrofit.GetOrderApis;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +40,6 @@ public class CheckoutActivity extends AppCompatActivity  {
 
             }
         });
-
 
         ImageButton backToHome=(ImageButton)findViewById(R.id.imageButton);
         backToHome.setOnClickListener(new View.OnClickListener() {

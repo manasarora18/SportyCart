@@ -51,7 +51,6 @@ public class OrderActivity extends AppCompatActivity {
         TextView orderTotalAmount = findViewById(R.id.orderTotalAmount);
         orderTotalAmount.setText(str);
 
-
         Button checkoutButton = findViewById(R.id.checkoutButton);
         TextView quantityText=findViewById(R.id.quantityText);
 
@@ -62,6 +61,5 @@ public class OrderActivity extends AppCompatActivity {
                 startActivity(checkOutIntent);
             }
         });
-
     }
 }

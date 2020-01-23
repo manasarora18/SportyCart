@@ -17,9 +17,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-
+import com.google.android.material.snackbar.Snackbar;
+import com.project.sportycart.entity.RegisterUser;
+import com.project.sportycart.retrofit.GetProductsService;
+import com.project.sportycart.retrofit.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
+    private RegisterUser registerUser=new RegisterUser();
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN=9001;
     String TAG="logCheck";
@@ -70,7 +77,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         finish();
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "Sorry! Wrong user", Toast.LENGTH_SHORT).show();
+                        registerUser.setEmail(user1);
+                        registerUser.setPassword(pw);
+                        if(Valid(registerUser)){
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean("LogInMode", true).apply();
+                            editor.putString("User", user1).apply();
+                            editor.commit();
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+//                        Toast.makeText(getApplicationContext(), "Sorry! Wrong user", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -118,6 +137,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
+    private boolean Valid(RegisterUser registerUser) {
+        Boolean loginFail=false;
+        GetProductsService getProductsService= RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+        Call<String> call=getProductsService.loginUser(registerUser);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
+                        t.getMessage(), Snackbar.LENGTH_SHORT);
+                snackbar.show();
+            }
+        });
+        return true;
+    }
+
     @Override
     public void onClick(View v) {
         signIn();
@@ -160,7 +198,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
-
     }
 }
 //GOOGLE API CLIENT LOGIN KEY

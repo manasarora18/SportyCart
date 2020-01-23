@@ -1,14 +1,15 @@
 package com.project.sportycart.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.project.sportycart.adapter.ProductAdapter;
 
-public class MerchantDetails{
+public class MerchantDetails {
 
 	@SerializedName("productId")
 	private String productId;
 
 	@SerializedName("merchantId")
-	private int merchantId;
+	private String merchantId;
 
 	@SerializedName("price")
 	private double price;
@@ -27,11 +28,11 @@ public class MerchantDetails{
 		return productId;
 	}
 
-	public void setMerchantId(int merchantId){
+	public void setMerchantId(String merchantId){
 		this.merchantId = merchantId;
 	}
 
-	public int getMerchantId(){
+	public String getMerchantId(){
 		return merchantId;
 	}
 
