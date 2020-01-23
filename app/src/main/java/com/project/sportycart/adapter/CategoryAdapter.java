@@ -77,9 +77,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         if(productList != null) {
             return productList.size();
         }
-        else{
             return 0;
-        }
     }
 
     public interface ProductCommunication{

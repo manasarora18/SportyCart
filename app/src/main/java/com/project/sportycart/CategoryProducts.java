@@ -23,15 +23,18 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_products);
+        System.out.println("IN CATEGORY");
         Intent intent=getIntent();
         Integer categoryId=intent.getIntExtra("categoryId",3);
+        System.out.println("InCategory:"+categoryId);
 
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-        Call<List<Product>> call= getProductsService.getCategoryProducts(categoryId);
+        Call<List<Product>> call= getProductsService.getCategoryProducts(1,categoryId);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 generateDataList(response.body());
+                System.out.println("API HIT");
             }
 
             @Override
@@ -59,9 +62,10 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
             productIntent.putExtra(("ColorAttribute"), (String) product.getProductAttributes().getColor());
             productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
             productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
+            productIntent.putExtra(("PID"),product.getProductId());
         }
         else{
-            Toast.makeText(getApplicationContext(),"NULL IN CATEGORY ATTRIBUTES",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"CATEGORY PRODUCT",Toast.LENGTH_SHORT).show();
         }
         startActivity(productIntent);
     }

@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.project.sportycart.R;
 import com.project.sportycart.entity.Product;
@@ -54,7 +51,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 if(product!=null) {
                     productCommunication.onClick(searchList.get(position));
                 }
-                System.out.println("NULLLLLLL IN SEARCH");
+                System.out.println("NULL IN SEARCH");
             }
         });
         holder.productName.setText(searchList.get(position).getName());
@@ -68,9 +65,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public int getItemCount() {
         if (searchList != null) {
             return searchList.size();
-        } else {
-            return 0;
         }
+            return 0;
     }
 
     public interface ProductCommunication {
