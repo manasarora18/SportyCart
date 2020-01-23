@@ -27,7 +27,7 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        GetOrderApis getOrderApis;
+       /* GetOrderApis getOrderApis;
         getOrderApis = RetrofitClientInstance.getRetrofitInstance().create(GetOrderApis.class);
         Call<List<Order>> callSaveOrder = getOrderApis.saveOrder("75");
         callSaveOrder.enqueue(new Callback<List<Order>>() {
@@ -41,7 +41,7 @@ public class OrderActivity extends AppCompatActivity {
             public void onFailure(Call<List<Order>> call, Throwable t) {
                 System.out.println("Order OnFailure");
             }
-        });
+        });*/
 
         Intent intent = getIntent();
         String str = intent.getStringExtra("totalAmount");

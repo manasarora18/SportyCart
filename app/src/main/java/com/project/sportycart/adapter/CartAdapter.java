@@ -70,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         //Glide.with(cartViewHolder.imageView.getContext()).load(dataItem.getImageUrl().toString()).into(cartViewHolder.imageView);
 
         cartViewHolder.textView.setText("Product ID: " + dataItem.getProductId()
-                + "\nPrice: " + dataItem.getPrice().toString()
+                + "\nPrice: " + dataItem.getPrice()
                 + "\nMerchant: " + dataItem.getMerchantId());
 
         cartViewHolder.incrementQuantity.setOnClickListener(new View.OnClickListener() {

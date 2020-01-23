@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.Order;
 import com.project.sportycart.entity.StockCheckDTO;
 import com.project.sportycart.retrofit.GetOrderApis;
@@ -25,18 +26,14 @@ import retrofit2.Response;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    List<Order> orderList;
+    List<Cart> orderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        Intent i = getIntent();
-        //List<Order> list=new ArrayList<>();
-        orderList = (List<Order>) i.getSerializableExtra("orderList");
-        System.out.println("Checkout Orderlist:" + orderList);
-        saveOrder();
+        saveOrderandCheckOut();
         addRating();
         redirectToHome();
 
@@ -48,17 +45,16 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     //Call to save order API
-    void saveOrder() {
+    void saveOrderandCheckOut() {
         GetOrderApis getOrderApis;
         getOrderApis = RetrofitClientInstance.getRetrofitInstance().create(GetOrderApis.class);
+        orderList = CartCollection.get();
 
         Call<List<StockCheckDTO>> callCheckoutOrder = getOrderApis.checkoutOrder(orderList, "75");
         callCheckoutOrder.enqueue(new Callback<List<StockCheckDTO>>() {
             @Override
             public void onResponse(Call<List<StockCheckDTO>> call, Response<List<StockCheckDTO>> response) {
                 System.out.println("Inside Checkout onResponse");
-                //List<Order> order=response.body();
-                //System.out.println(order);
             }
 
             @Override

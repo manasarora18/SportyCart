@@ -16,7 +16,7 @@ public class Cart implements Serializable {
     private String merchantId;
 
     @SerializedName("price")
-    private String price;
+    private double price;
 
     @SerializedName("userId")
     private String userId;
@@ -45,11 +45,11 @@ public class Cart implements Serializable {
         return merchantId;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 

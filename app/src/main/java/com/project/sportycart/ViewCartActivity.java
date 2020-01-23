@@ -16,6 +16,7 @@ import com.project.sportycart.entity.Cart;
 import com.project.sportycart.retrofit.GetCartApis;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
 
+import java.io.Serializable;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -61,6 +62,11 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 adapter = new CartAdapter(dataItemList, ViewCartActivity.this);
                 recyclerView.setAdapter(adapter);
                 System.out.println("Inside OnResponse");
+                //CartCollection cartCollection;
+                for(Cart data:dataItemList)
+                {
+                    CartCollection.add(data);
+                }
 
 
             }
@@ -120,12 +126,14 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
                 double sum = 0;
                 for (Cart c : dataItemList) {
-                    sum = sum + Double.parseDouble(c.getPrice()) * c.getQuantity();
+                    sum = sum + (c.getPrice()) * c.getQuantity();
                     System.out.println(String.valueOf(sum));
                 }
                 orderIntent.putExtra("totalAmount", String.valueOf(sum));
 
                 startActivity(orderIntent);
+
+                //Intent cartIntent=new Intent()
                 //finish();
 
             }
