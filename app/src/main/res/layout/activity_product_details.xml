@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/product_details_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -90,20 +90,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productimage" />
 
-<!--    <Button-->
-<!--        android:id="@+id/NOT IN USE"-->
-<!--        android:layout_width="159dp"-->
-<!--        android:layout_height="42dp"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="350dp"-->
-<!--        android:layout_marginBottom="56dp"-->
-<!--        android:fontFamily="monospace"-->
-<!--        android:text="Add to Cart"-->
-<!--        android:textAlignment="center"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/description"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/productimage"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.482" />-->
 
     <TextView
         android:id="@+id/colorAttribute"

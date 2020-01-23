@@ -11,8 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="left"
+        android:fontFamily="sans-serif-smallcaps"
         android:padding="10dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/productImage"
@@ -20,33 +19,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/productImage"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="8dp"-->
-<!--        android:background="#03A9F4"-->
-<!--        android:padding="10dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView"-->
-<!--        app:srcCompat="@android:color/background_dark" />-->
-
-
-    <Button
-        android:id="@+id/addToCart"
+    <ImageView
+        android:id="@+id/productImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="sans-serif-condensed-medium"
+        android:background="#03A9F4"
         android:padding="10dp"
-        android:text="Add to Cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@android:color/background_dark" />
+<!--    <Button-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:fontFamily="sans-serif-condensed-medium"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="AddToCart"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
+<!--        -->
+<!--    </Button>-->
 
     <TextView
         android:id="@+id/productPrice"
@@ -54,13 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:fontFamily="sans-serif-black"
-        android:gravity="right"
         android:padding="10dp"
+        android:textAlignment="textEnd"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/addToCart"
-        app:layout_constraintEnd_toEndOf="@id/productName"
-        app:layout_constraintStart_toStartOf="@id/productName"
+        app:layout_constraintBottom_toTopOf="@+id/productImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 

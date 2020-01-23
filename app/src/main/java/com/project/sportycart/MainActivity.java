@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        Toast.makeText(this, "this menu item clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "this menu item clicked", Toast.LENGTH_SHORT).show();
         switch(item.getItemId()) {
             case R.id.cricket_nav_menu:
                 Intent catIntent1 = new Intent(this, CategoryProducts.class);
