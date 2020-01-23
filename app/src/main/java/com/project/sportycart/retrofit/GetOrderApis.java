@@ -16,6 +16,7 @@ public interface GetOrderApis {
     /*@POST("/orderService/order/save/{userId}")
     Call<List<Order>> saveOrder(@Path("userId") String userId);*/
 
+    //Call to checkout API
     @POST("/orderService/order/checkout/{userId}")
     Call<List<StockCheckDTO>> checkoutOrder(@Body List<Cart> orderDetailsDTO, @Path("userId") String userId);
 

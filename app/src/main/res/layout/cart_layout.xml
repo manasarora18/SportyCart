@@ -21,7 +21,7 @@
             android:background="#03A9F4" />
 
         <LinearLayout
-            android:layout_width="217dp"
+            android:layout_width="220dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -36,20 +36,20 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="84dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/deductCartQuantity"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00F8F6F6"
                     app:srcCompat="@drawable/ic_remove_circle_black_24dp"></ImageButton>
 
                 <TextView
                     android:id="@+id/quantityText"
-                    android:layout_width="74dp"
-                    android:layout_height="68dp"
+                    android:layout_width="75dp"
+                    android:layout_height="54dp"
                     android:gravity="center"
                     android:text="0"
                     android:textAlignment="center"
@@ -59,7 +59,7 @@
 
                 <ImageButton
                     android:id="@+id/incrementCartQuantity"
-                    android:layout_width="wrap_content"
+                    android:layout_width="76dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#00F5F2F2"
                     app:srcCompat="@drawable/ic_add_circle_black_24dp"></ImageButton>
@@ -67,7 +67,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/removeCartItem"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:backgroundTint="#00F1F1F1"
