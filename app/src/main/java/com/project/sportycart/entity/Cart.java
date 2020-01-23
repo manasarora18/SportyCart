@@ -2,7 +2,9 @@ package com.project.sportycart.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable {
 
     @SerializedName("quantity")
     private int quantity;

@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".CheckoutActivity"></activity>
+
         <activity android:name=".OrderActivity" />
         <activity android:name=".SearchResults" />
         <activity android:name=".CategoryProducts" />

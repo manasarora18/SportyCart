@@ -12,6 +12,7 @@ import com.project.sportycart.entity.Order;
 import com.project.sportycart.retrofit.GetOrderApis;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -19,6 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderActivity extends AppCompatActivity {
+    List<Order> orderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,8 @@ public class OrderActivity extends AppCompatActivity {
         callSaveOrder.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                List<Order> orderList = response.body();
-                for (Order o : orderList) {
-                    System.out.println("Product ID: " + o.getProductId()
-                            + "\nMerchantID: " + o.getMerchantId()
-                            + "\nQuantity:" + o.getQuantity()
-                            + "\nPrice: " + o.getPrice());
-                }
+                orderList = response.body();
+
             }
 
             @Override
@@ -53,13 +50,21 @@ public class OrderActivity extends AppCompatActivity {
 
 
         Button checkoutButton = findViewById(R.id.checkoutButton);
-        TextView quantityText=findViewById(R.id.quantityText);
+        TextView quantityText = findViewById(R.id.quantityText);
 
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent checkOutIntent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                //Bundle bundle = new Bundle();
+                //bundle.putParcelable("orderList", orderList);
+                //checkOutIntent.putExtras(bundle);
+                //for(Order o:orderList) {
+                //    checkOutIntent.putExtra("orderList", orderList.get(0));
+                //System.out.println(orderList.get(0));
+                //}
                 startActivity(checkOutIntent);
+
             }
         });
 

@@ -2,84 +2,86 @@ package com.project.sportycart.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Order{
+import java.io.Serializable;
 
-	@SerializedName("quantity")
-	private int quantity;
+public class Order implements Serializable {
 
-	@SerializedName("productId")
-	private String productId;
+    @SerializedName("quantity")
+    private int quantity;
 
-	@SerializedName("merchantId")
-	private String merchantId;
+    @SerializedName("productId")
+    private String productId;
 
-	@SerializedName("price")
-	private double price;
+    @SerializedName("merchantId")
+    private String merchantId;
 
-	@SerializedName("rating")
-	private double rating;
+    @SerializedName("price")
+    private double price;
 
-	@SerializedName("userId")
-	private String userId;
+    @SerializedName("rating")
+    private double rating;
 
-	public void setQuantity(int quantity){
-		this.quantity = quantity;
-	}
+    @SerializedName("userId")
+    private String userId;
 
-	public int getQuantity(){
-		return quantity;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setProductId(String productId){
-		this.productId = productId;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public String getProductId(){
-		return productId;
-	}
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
-	public void setMerchantId(String merchantId){
-		this.merchantId = merchantId;
-	}
+    public String getProductId() {
+        return productId;
+    }
 
-	public String getMerchantId(){
-		return merchantId;
-	}
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
 
-	public void setPrice(double price){
-		this.price = price;
-	}
+    public String getMerchantId() {
+        return merchantId;
+    }
 
-	public double getPrice(){
-		return price;
-	}
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-	public void setRating(double rating){
-		this.rating = rating;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public double getRating(){
-		return rating;
-	}
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
-	public void setUserId(String userId){
-		this.userId = userId;
-	}
+    public double getRating() {
+        return rating;
+    }
 
-	public String getUserId(){
-		return userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"Order{" + 
-			"quantity = '" + quantity + '\'' + 
-			",productId = '" + productId + '\'' + 
-			",merchantId = '" + merchantId + '\'' + 
-			",price = '" + price + '\'' + 
-			",rating = '" + rating + '\'' + 
-			",userId = '" + userId + '\'' + 
-			"}";
-		}
+    public String getUserId() {
+        return userId;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Order{" +
+                        "quantity = '" + quantity + '\'' +
+                        ",productId = '" + productId + '\'' +
+                        ",merchantId = '" + merchantId + '\'' +
+                        ",price = '" + price + '\'' +
+                        ",rating = '" + rating + '\'' +
+                        ",userId = '" + userId + '\'' +
+                        "}";
+    }
 }

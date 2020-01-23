@@ -31,6 +31,8 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
     GetCartApis getCartApis;
     List<Cart> dataItemList;
+    public boolean flag = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +75,41 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
 
         //confirm order --> showing total amount of all cart items of a user
+
+        processConfirmOrder();
+
+    }
+
+
+    //update quantity of cart for the user id(75 currently)
+    @Override
+    public boolean updateQuantity(String productId, int quantity) {
+        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity);
+        callUpdateQuantity.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                System.out.println("Inside updateQuantity OnResponse");
+                flag = true;
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                System.out.println("Inside updateQuantity OnFailure");
+                flag = false;
+            }
+        });
+        return flag;
+
+    }
+
+    void processConfirmOrder()
+    {
         Button confirmOrder = findViewById(R.id.confirmOrderButton);
         TextView quantityText = (TextView) findViewById(R.id.quantityText);
-        //System.out.println(Integer.parseInt(quantityText.getText().toString()));
-       /* if (Integer.parseInt(quantityText.getText().toString()) == 0) {
+       /* if (quantityText.getText().toString().trim().equals("0")) {
             confirmOrder.setEnabled(false);
-            Toast toast = Toast.makeText(getApplicationContext(), "Cart Empty...", Toast.LENGTH_SHORT);
-            toast.show();
         } else {*/
 
         confirmOrder.setEnabled(true);
@@ -96,31 +126,11 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 orderIntent.putExtra("totalAmount", String.valueOf(sum));
 
                 startActivity(orderIntent);
-                finish();
+                //finish();
 
             }
         });
-    }
-
-
-    //update quantity of cart for the user id(75 currently)
-    @Override
-    public void updateQuantity(String productId, int quantity) {
-        Call<List<Cart>> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity);
-        callUpdateQuantity.enqueue(new Callback<List<Cart>>() {
-            @Override
-            public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
-                System.out.println("Inside updateQuantity OnResponse");
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Cart>> call, Throwable t) {
-                System.out.println("Inside updateQuantity OnFailure");
-
-            }
-        });
+        // }
 
     }
 }

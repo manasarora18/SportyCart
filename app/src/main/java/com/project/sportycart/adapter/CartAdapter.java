@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public TextView quantityText;
         public ImageButton deductQuantity;
         public ImageButton incrementQuantity;
+        public Button confirmOrder;
         int quantity = 1;
 
         public CartViewHolder(View v) {
@@ -41,6 +43,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             quantityText = v.findViewById(R.id.quantityText);
             deductQuantity = v.findViewById(R.id.deductCartQuantity);
             incrementQuantity = v.findViewById(R.id.incrementCartQuantity);
+            confirmOrder=v.findViewById(R.id.confirmOrderButton);
 
         }
 
@@ -73,8 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         cartViewHolder.incrementQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( Integer.parseInt(cartViewHolder.quantityText.getText().toString()) >= 0 )
-                {
+                if (Integer.parseInt(cartViewHolder.quantityText.getText().toString()) >= 0) {
 
                     cartViewHolder.deductQuantity.setEnabled(true);
 
@@ -90,13 +92,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             @Override
             public void onClick(View v) {
 
-                if( Integer.parseInt(cartViewHolder.quantityText.getText().toString()) == 0 )
-                {
+                if (Integer.parseInt(cartViewHolder.quantityText.getText().toString()) == 0) {
 
                     cartViewHolder.deductQuantity.setEnabled(false);
 
-                }
-                else {
+                } else {
                     cartViewHolder.deductQuantity.setEnabled(true);
                     cartViewHolder.quantityText.setText(String.valueOf(Integer.parseInt(cartViewHolder.quantityText.getText().toString()) - 1));
                     dataItem.setQuantity(Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
@@ -108,6 +108,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         cartViewHolder.quantityText.setText(String.valueOf(dataItem.getQuantity()));
 
 
+
     }
 
 
@@ -117,6 +118,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     public interface ICartCommunicator {
-        void updateQuantity(String productId, int quantity);
+        boolean updateQuantity(String productId, int quantity);
     }
 }
