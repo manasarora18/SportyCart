@@ -12,6 +12,7 @@ import com.project.sportycart.R;
 import com.project.sportycart.entity.Product;
 import java.util.List;
 
+
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private List<Product> productList;
     private ProductCommunication productCommunication;
@@ -20,11 +21,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         this.productList=productList;
         this.productCommunication=productCommunication;
     }
-
     public class HomeViewHolder extends RecyclerView.ViewHolder{
         TextView productName;
         ImageView productImage;
-
         public HomeViewHolder(View itemView){
             super(itemView);
             this.productName=itemView.findViewById((R.id.productName));

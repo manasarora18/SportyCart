@@ -13,7 +13,7 @@ public class RegisterUser{
 	private String userName;
 
 	@SerializedName("userId")
-	private Response<String> userId;
+	private String userId;
 
 	@SerializedName("email")
 	private String email;
@@ -37,11 +37,11 @@ public class RegisterUser{
 		return userName;
 	}
 
-	public void setUserId(Response<String> userId){
+	public void setUserId(String userId){
 		this.userId = userId;
 	}
 
-	public Response<String> getUserId(){
+	public String getUserId(){
 		return userId;
 	}
 

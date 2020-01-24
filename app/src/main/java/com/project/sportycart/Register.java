@@ -75,7 +75,7 @@ public class Register extends AppCompatActivity {
                     call.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
-                            registerUser.setUserId(response);
+//                            registerUser.setUserId("userId");
                             System.out.println("REGISTERED");
                         }
 

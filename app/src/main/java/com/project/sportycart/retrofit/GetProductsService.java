@@ -6,6 +6,8 @@ import com.project.sportycart.entity.MerchantDetails;
 import com.project.sportycart.entity.OrderTable;
 import com.project.sportycart.entity.Product;
 import com.project.sportycart.entity.RegisterUser;
+import com.project.sportycart.entity.UserLog;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -38,5 +40,8 @@ public interface GetProductsService {
 
     @GET("/orderLog")
     Call<List<OrderTable>> getOrderLog(RegisterUser registerUser);
+
+    @GET("/loginLog")
+    Call<List<UserLog>>getLoginLog(RegisterUser registerUser);
 
 }

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OrderLog"></activity>
+        <activity android:name=".LoginLog"></activity>
+        <activity android:name=".OrderLog" />
         <activity android:name=".SearchResults" />
         <activity android:name=".CategoryProducts" />
         <activity android:name=".ProductDetails" />
@@ -25,8 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".CheckoutActivity"></activity>
-
+        <activity android:name=".CheckoutActivity" />
         <activity android:name=".OrderActivity" />
         <activity android:name=".ViewCartActivity" />
     </application>

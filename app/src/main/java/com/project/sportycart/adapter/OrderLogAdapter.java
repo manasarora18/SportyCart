@@ -19,7 +19,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.recycle_list, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.order_recycle_list, parent, false);
         OrderViewHolder viewHolder = new OrderViewHolder(listItem);
         return viewHolder;
     }
@@ -29,7 +29,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         holder.orderId.setText(list.get(position).getOrderId());
         holder.productId.setText(list.get(position).getProductId());
         holder.price.setText(list.get(position).getPrice());
-        holder.quantity.setText(""+list.get(position).getQuantity());
+        holder.quantity.setText(list.get(position).getQuantity());
         holder.merchantId.setText(list.get(position).getMechantId());
         holder.timeStamp.setText(list.get(position).getTimeStamp());
 
