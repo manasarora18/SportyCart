@@ -18,6 +18,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.RegisterUser;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
@@ -27,6 +28,7 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private RegisterUser registerUser=new RegisterUser();
+    private AccessTokenDTO accessTokenDTO;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN=9001;
     String TAG="logCheck";
@@ -44,6 +46,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Intent loginIntent=getIntent();
+        String cartLogin=loginIntent.getStringExtra("CartPerson");
+        if(cartLogin!=null){
+            Snackbar snackbar=Snackbar.make(findViewById(R.id.login_layout),"Login First to Order",Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        }
+
         Button register=findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +91,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         registerUser.setPassword(pw);
                         if(Valid(registerUser)){
                             SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("UserId",accessTokenDTO.getUserId());
                             editor.putBoolean("LogInMode", true).apply();
                             editor.putString("User", user1).apply();
                             editor.commit();
@@ -140,14 +151,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private boolean Valid(RegisterUser registerUser) {
         Boolean loginFail=false;
         GetProductsService getProductsService= RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-        Call<String> call=getProductsService.loginUser(registerUser);
-        call.enqueue(new Callback<String>() {
+        Call<AccessTokenDTO> call=getProductsService.loginUser(registerUser);
+        call.enqueue(new Callback<AccessTokenDTO>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
+                accessTokenDTO=response.body();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
                         t.getMessage(), Snackbar.LENGTH_SHORT);
                 snackbar.show();

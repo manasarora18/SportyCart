@@ -20,7 +20,7 @@ public class Product{
 	private String description;
 
 	@SerializedName("productRating")
-	private int productRating;
+	private double productRating;
 
 	@SerializedName("categoryId")
 	private int categoryId;
@@ -68,11 +68,11 @@ public class Product{
 		return description;
 	}
 
-	public void setProductRating(int productRating){
+	public void setProductRating(double productRating){
 		this.productRating = productRating;
 	}
 
-	public int getProductRating(){
+	public double getProductRating(){
 		return productRating;
 	}
 
