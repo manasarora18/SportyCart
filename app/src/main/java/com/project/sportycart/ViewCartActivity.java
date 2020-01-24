@@ -26,7 +26,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     private SharedPreferences sharedPreferences;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager cartLayoutManager;
-
+//rucha
     GetCartApis getCartApis;
     List<Cart> dataItemList;
     public boolean flag = true;
