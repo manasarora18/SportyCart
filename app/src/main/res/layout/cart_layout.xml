@@ -11,18 +11,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="2dp">
 
         <ImageView
             android:id="@+id/cartProductImage"
-            android:layout_width="181dp"
-            android:layout_height="187dp"
+            android:layout_width="167dp"
+            android:layout_height="216dp"
             android:layout_margin="1dp"
             android:background="#03A9F4" />
 
         <LinearLayout
-            android:layout_width="220dp"
-            android:layout_height="match_parent"
+            android:layout_width="232dp"
+            android:layout_height="222dp"
             android:orientation="vertical">
 
             <TextView
@@ -41,8 +42,8 @@
 
                 <ImageButton
                     android:id="@+id/deductCartQuantity"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="81dp"
+                    android:layout_height="match_parent"
                     android:backgroundTint="#00F8F6F6"
                     app:srcCompat="@drawable/ic_remove_circle_black_24dp"></ImageButton>
 
@@ -69,7 +70,7 @@
             <ImageButton
                 android:id="@+id/removeCartItem"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="wrap_content"
                 android:backgroundTint="#00F1F1F1"
                 app:srcCompat="@drawable/ic_delete_black_24dp" />
 
