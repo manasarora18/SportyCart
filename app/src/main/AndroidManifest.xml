@@ -25,6 +25,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".CheckoutActivity"></activity>
+
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".ViewCartActivity" />
     </application>
 
 </manifest>

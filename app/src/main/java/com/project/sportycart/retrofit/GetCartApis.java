@@ -3,7 +3,6 @@ package com.project.sportycart.retrofit;
 import com.project.sportycart.entity.Cart;
 
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

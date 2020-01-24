@@ -1,5 +1,6 @@
 package com.project.sportycart.retrofit;
 
+import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.MerchantDetails;
 import com.project.sportycart.entity.OrderTable;
@@ -33,7 +34,7 @@ public interface GetProductsService {
     Call <String> addUser(@Body RegisterUser registerUser);
 
     @POST("/login")
-    Call<String> loginUser(@Body RegisterUser registerUser);
+    Call<AccessTokenDTO> loginUser(@Body RegisterUser registerUser);
 
     @GET("/orderLog")
     Call<List<OrderTable>> getOrderLog(RegisterUser registerUser);

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 
 public class ProductDetails extends AppCompatActivity implements ProductAdapter.MerchantDetailsInterface {
     private RecyclerView mercRecyclerView;
+    private SharedPreferences sharedPreferences;
     private MerchantDetails merchantDetails;
     private ProductAdapter productAdapter;
     private Cart cart=new Cart();
@@ -87,7 +89,11 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
     public void onClick(MerchantDetails merchantDetails) {
         cart.setProductId(pid);
         cart.setQuantity(1);
-        cart.setUserId("Android12348900");
+        sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
+        String userId=sharedPreferences.getString("UserId","");
+        cart.setUserId(userId);
+
+        //cart.setUserId("75");
         cart.setPrice(merchantDetails.getPrice());
         cart.setMerchantId(merchantDetails.getMerchantId());
         System.out.println(cart);
