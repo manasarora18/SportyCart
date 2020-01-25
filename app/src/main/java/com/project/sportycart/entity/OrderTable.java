@@ -27,11 +27,11 @@ public class OrderTable{
     @SerializedName("userId")
     private String userId;
 
-    public void setmerchantId(String merchantId){
+    public void setMerchantId(String merchantId){
         this.merchantId = merchantId;
     }
 
-    public String getmerchantId(){
+    public String getMerchantId(){
         return merchantId;
     }
 
