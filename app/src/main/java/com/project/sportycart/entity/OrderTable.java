@@ -3,8 +3,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderTable{
 
-    @SerializedName("mechantId")
-    private String mechantId;
+    @SerializedName("merchantId")
+    private String merchantId;
 
     @SerializedName("timeStamp")
     private String timeStamp;
@@ -27,21 +27,21 @@ public class OrderTable{
     @SerializedName("userId")
     private String userId;
 
-    public void setMechantId(String mechantId){
-        this.mechantId = mechantId;
+    public void setmerchantId(String merchantId){
+        this.merchantId = merchantId;
     }
 
-    public String getMechantId(){
-        return mechantId;
+    public String getmerchantId(){
+        return merchantId;
     }
 
-    public void setTimeStamp(String timeStamp){
+    /*public void setTimeStamp(String timeStamp){
         this.timeStamp = timeStamp;
     }
 
     public String getTimeStamp(){
         return timeStamp;
-    }
+    }*/
 
     public void setQuantity(int quantity){
         this.quantity = quantity;
@@ -95,8 +95,8 @@ public class OrderTable{
     public String toString(){
         return
                 "OrderTable{" +
-                        "mechantId = '" + mechantId + '\'' +
-                        ",timeStamp = '" + timeStamp + '\'' +
+                        "merchantId = '" + merchantId + '\'' +
+                        //",timeStamp = '" + timeStamp + '\'' +
                         ",quantity = '" + quantity + '\'' +
                         ",productId = '" + productId + '\'' +
                         ",orderId = '" + orderId + '\'' +
