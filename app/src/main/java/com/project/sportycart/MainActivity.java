@@ -178,6 +178,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 editor.commit();
                 Intent logoutIntent=new Intent(MainActivity.this,Login.class);
                 startActivity(logoutIntent);
+            case R.id.order_nav_menu:
+                Intent orderHistoryIntent=new Intent(MainActivity.this,OrderLog.class);
+                SharedPreferences sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
+                String userId=sharedPreferences.getString("UserId","");
+                orderHistoryIntent.putExtra("UserId",userId);
+                if(userId==""){
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout),
+                            "Login First", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+                else{
+                    startActivity(orderHistoryIntent);
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }

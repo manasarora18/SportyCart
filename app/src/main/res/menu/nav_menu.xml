@@ -4,7 +4,8 @@
     <item android:title="@string/profile">
         <menu>
             <item android:title="@string/my_details"/>
-            <item android:title="@string/my_orders"/>
+            <item android:title="@string/my_orders"
+                android:id="@+id/order_nav_menu"/>
 
         </menu>
     </item>
@@ -25,7 +26,8 @@
     </item>
     <item android:title="@string/account">
         <menu>
-            <item android:title="@string/my_logins"/>
+            <item android:title="@string/my_logins"
+                android:id="@+id/logins_nav_menu"/>
             <item android:title="@string/logout"
                 android:id="@+id/logout"/>
         </menu>
