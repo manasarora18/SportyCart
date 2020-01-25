@@ -18,7 +18,7 @@ public class OrderLog extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter orderLogAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private RegisterUser registerUser=new RegisterUser();
+    private RegisterUser registerUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

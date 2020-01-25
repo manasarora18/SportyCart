@@ -1,5 +1,6 @@
 package com.project.sportycart.retrofit;
 
+import com.project.sportycart.categoryActivity.CategoryPageResponse;
 import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.MerchantDetails;
@@ -20,8 +21,8 @@ public interface GetProductsService {
     @GET("/productService/product/getAllProducts")
     Call<List<Product>> getAllProducts();
 
-    @GET("/productService/product/showProducts/{categoryId}")
-    Call<List<Product>> getCategoryProducts(@Query("pageNo") int page, @Path("categoryId") Integer categoryId);
+    @GET("/product/showProducts/{categoryId}")
+    Call<CategoryPageResponse> getCategoryProducts(@Path("categoryId") Integer categoryId , @Query("pageNo") int page, @Query("pageSize") int size);
 
     @GET("/searchService/search/{str}")
     Call<List<Product>> getSearchData(@Path("str")String str);

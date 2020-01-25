@@ -10,20 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.sportycart.R;
+import com.project.sportycart.categoryActivity.ContentItem;
 import com.project.sportycart.entity.Product;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    List<Product> productList;
+    List<ContentItem> productList;
     private Context context;
     private ProductCommunication productCommunication;
 
-    public CategoryAdapter(List<Product>productList, ProductCommunication productCommunication){
+    public CategoryAdapter(Context context, List<ContentItem>productList, ProductCommunication productCommunication){
         this.productList=productList;
+        this.context=context;
         this.productCommunication=productCommunication;
     }
 
-    public class CategoryViewHolder extends RecyclerView.ViewHolder{
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView productName;
         ImageView productImage;
 
@@ -31,6 +33,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             super(itemView);
             this.productName=itemView.findViewById((R.id.productName));
             this.productImage=itemView.findViewById(R.id.productImage);
+
         }
     }
 
@@ -48,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.productName.getRootView() .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product product = productList.get(position);
+                ContentItem product = productList.get(position);
                 if (product != null) {
                     productCommunication.onClick(productList.get(position));
                 }
@@ -58,7 +61,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             }
         });
 
-        Product product=productList.get(position);
+        ContentItem product=productList.get(position);
         if(product!=null) {
             holder.productName.setText(product.getName());
         }
@@ -81,6 +84,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public interface ProductCommunication{
-        void onClick(Product product);
+        void onClick(ContentItem product);
     }
 }
