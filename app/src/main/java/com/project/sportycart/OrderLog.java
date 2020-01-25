@@ -43,15 +43,16 @@ public class OrderLog extends AppCompatActivity {
                 {
                     OrderCollection.add(orderTable);
                 }
+                System.out.println("Order Log OnResponse");
             }
 
             @Override
             public void onFailure(Call<List<OrderTable>> call, Throwable t) {
+
+                System.out.println("Order Log OnFailure");
 
             }
         });
     }
 }
 
-//373683242655-0f1t86uv6ntj57dipepnr9tsdcs7kjll.apps.googleusercontent.com
-// deTR-mhHCoSRtb5wqehSQpVu
