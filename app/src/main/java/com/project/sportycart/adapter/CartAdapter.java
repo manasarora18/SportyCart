@@ -11,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.project.sportycart.ProductCollection;
 import com.project.sportycart.R;
 import com.project.sportycart.ViewCartActivity;
@@ -21,9 +19,7 @@ import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.Product;
 import com.project.sportycart.retrofit.GetCartApis;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import retrofit2.Call;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {

@@ -194,11 +194,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             System.out.println(account.getEmail());
             System.out.println(account.getDisplayName());
+
             sp=getSharedPreferences("LoginData",MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("LogInMode", true).apply();
             editor.putString("User", account.getDisplayName()).apply();
             editor.putString("Email",account.getEmail()).apply();
+            //ID TOKEN SENT AT BACKEND
+            String idToken=account.getIdToken();
             editor.commit();
             Intent GoogleSignIntent =new Intent(Login.this, MainActivity.class);
             GoogleSignIntent.putExtra("Email",account.getEmail());
