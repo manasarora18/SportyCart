@@ -50,7 +50,7 @@ public class CheckoutActivity extends AppCompatActivity {
         orderList = CartCollection.get();
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
-        Call<List<StockCheckDTO>> callCheckoutOrder = getOrderApis.checkoutOrder(orderList, userId);
+        Call<List<StockCheckDTO>> callCheckoutOrder = getOrderApis.checkoutOrder(orderList, "75");//userId
         callCheckoutOrder.enqueue(new Callback<List<StockCheckDTO>>() {
             @Override
             public void onResponse(Call<List<StockCheckDTO>> call, Response<List<StockCheckDTO>> response) {

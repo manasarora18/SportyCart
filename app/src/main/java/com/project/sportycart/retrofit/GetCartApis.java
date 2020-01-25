@@ -13,14 +13,14 @@ import retrofit2.http.Path;
 public interface GetCartApis {
 
     //API to get cart details of the logged in user
-    @GET("/orderService/cart/getCart/{userId}")
+    @GET("/order-service/cart/getCart/{userId}")
     Call<List<Cart>> getAllCartItems(@Path("userId") String userId);
 
     //API to increment or decrement cart quantity
-    @GET("/orderService/cart/cartIncrement/{productId}/{userId}/{quantity}")
-    Call<Boolean> updateCartQuantity(@Path("productId") String productId, @Path("userId") String userId, @Path("quantity") int quantity);
+    @GET("/order-service/cart/cartIncrement/{productId}/{userId}/{quantity}/{merchantId}")
+    Call<Boolean> updateCartQuantity(@Path("productId") String productId, @Path("userId") String userId, @Path("quantity") int quantity,@Path("merchantId") String merchantId);
 
-    @GET("/orderService/cart/deleteCartRow/{userId}/{merchantId}/{productId}")
+    @GET("/order-service/cart/deleteCartRow/{userId}/{merchantId}/{productId}")
     Call<Boolean> deleteCartItem(@Path("userId") String userId, @Path("merchantId") String merchantId, @Path("productId") String productId);
 
 }

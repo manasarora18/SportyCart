@@ -19,14 +19,14 @@ public interface GetOrderApis {
     Call<List<Order>> saveOrder(@Path("userId") String userId);*/
 
     //Call to checkout API
-    @POST("/orderService/order/checkout/{userId}")
+    @POST("/order-service/order/checkout/{userId}")
     Call<List<StockCheckDTO>> checkoutOrder(@Body List<Cart> orderDetailsDTO, @Path("userId") String userId);
 
-    /*@POST("/orderService/setProductRating/{orderId}/{productId}/{merchantId}/{userId}/{rating}")
-    Call<Boolean> setOrderRating(@Path("orderId")int orderId,@Path("productId") String productId,
+    @POST("/order-service/order/setProductRating/{orderId}/{productId}/{merchantId}/{userId}/{rating}")
+    Call<Boolean> setOrderRating(@Path("orderId")String orderId,@Path("productId") String productId,
                                  @Path("merchantId") String merchantId,
-                                 @Path("userId") String userId,@Path("rating")double rating);*/
+                                 @Path("userId") String userId,@Path("rating")double rating);
 
-    @GET("/orderService/order/getRecentOrders/{userId}")
+    @GET("/order-service/order/getRecentOrders/{userId}")
     Call<List<OrderTable>> getRecentOrders(@Path("userId") String userId);
 }

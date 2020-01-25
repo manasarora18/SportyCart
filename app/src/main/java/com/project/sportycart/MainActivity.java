@@ -107,11 +107,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 generateDataList(response.body());
+                System.out.println("OnResponse getAllProducts");
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                System.out.println("OnFailure getAllProducts");
+
             }
         });
     }
@@ -184,14 +187,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SharedPreferences sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
                 String userId=sharedPreferences.getString("UserId","");
                 orderHistoryIntent.putExtra("UserId",userId);
-                if(userId==""){
-                    Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout),
-                            "Login First", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
-                else{
+//                if(userId==""){
+//                    Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout),
+//                            "Login First", Snackbar.LENGTH_SHORT);
+//                    snackbar.show();
+//                }
+//                else{
                     startActivity(orderHistoryIntent);
-                }
+//                }
             default:
                 return super.onOptionsItemSelected(item);
         }

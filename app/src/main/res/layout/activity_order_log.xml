@@ -7,13 +7,13 @@
     tools:context=".OrderLog">
 
     <TextView
-        android:id="@+id/userId"
+        android:id="@+id/yourOrders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:gravity="center_horizontal"
-        android:text="User Id"
-        android:textSize="36dp" />
+        android:text="Your Orders"
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyle_view"
