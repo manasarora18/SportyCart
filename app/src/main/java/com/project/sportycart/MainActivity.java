@@ -119,9 +119,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void generateDataList(List<Product> list){
         recyclerView=findViewById(R.id.my_recycler_view);
 //        Product product;
-        for(Product product:list)
-        {
-            ProductCollection.add(product);
+        if(list!=null) {
+            for (Product product : list) {
+                ProductCollection.add(product);
+            }
         }
         homeAdapter=new HomeAdapter(list,MainActivity.this);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);

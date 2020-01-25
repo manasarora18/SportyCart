@@ -30,8 +30,8 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         holder.productId.setText(list.get(position).getProductId());
         holder.price.setText(list.get(position).getPrice());
         holder.quantity.setText(list.get(position).getQuantity());
-        holder.merchantId.setText(list.get(position).getMechantId());
-        holder.timeStamp.setText(list.get(position).getTimeStamp());
+        holder.merchantId.setText(list.get(position).getMerchantId());
+        //holder.timeStamp.setText(list.get(position).getTimeStamp());
 
     }
 

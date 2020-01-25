@@ -21,7 +21,7 @@ public interface GetProductsService {
     @GET("/productService/product/getAllProducts")
     Call<List<Product>> getAllProducts();
 
-    @GET("/product/showProducts/{categoryId}")
+    @GET("/productService/product/showProducts/{categoryId}")
     Call<CategoryPageResponse> getCategoryProducts(@Path("categoryId") Integer categoryId , @Query("pageNo") int page, @Query("pageSize") int size);
 
     @GET("/searchService/search/{str}")
