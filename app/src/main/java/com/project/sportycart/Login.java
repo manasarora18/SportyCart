@@ -215,11 +215,3 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 }
-//GOOGLE API CLIENT LOGIN KEY
-//797175891043-3je1gnb30pq9m8eum6us67uh2c3t7eie.apps.googleusercontent.com
-//AB:1E:23:61:7D:7A:4A:9E:A7:DB:88:4A:4B:B9:9A:2B:CD:05:23:F3
-//yrx5bAa79Cyvjs2AQk1ct70s
-
-//GOOGLE API LOGIN KEY
-//797175891043-tt721gbd5fvm8i8ckg3kobr38jn4a31b.apps.googleusercontent.com
-//FKtPQzX-PybNcCOA65t8tl5v
