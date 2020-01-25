@@ -41,18 +41,19 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         final OrderTable orderTable = list.get(position);
         holder.orderId.setText(list.get(position).getOrderId());
         //holder.rating.setText( String.valueOf(list.get(position).getRating()) );
+        holder.ratingBar.setRating(Float.parseFloat(String.valueOf(list.get(position).getRating())));
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 //Toast toast = Toast.makeText(this, String.valueOf(rating), Toast.LENGTH_SHORT);
                 //toast.show();
                 rating = holder.ratingBar.getRating();
-                if(orderTable.getRating()>0)
-                {
-                    holder.ratingBar.setIsIndicator(true);
-                    holder.submitRating.setVisibility(View.INVISIBLE);
-                   // holder.ratingBar.getNumStars();
-                }
+//                if(orderTable.getRating()>0)
+//                {
+//                    //holder.ratingBar.setIsIndicator(true);
+//                    holder.submitRating.setVisibility(View.INVISIBLE);
+//                   // holder.ratingBar.getNumStars();
+//                }
                 orderTable.setRating(rating);
                 //holder.ratingBar.setRating(rating);
                 System.out.println(orderTable.getRating());
