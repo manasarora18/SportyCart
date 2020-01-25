@@ -51,7 +51,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             orderId = (TextView) itemView.findViewById(R.id.orderId);
-            productId = (TextView) itemView.findViewById(R.id.productId);
+            productId = (TextView) itemView.findViewById(R.id.ratingText);
             price = (TextView) itemView.findViewById(R.id.price);
             quantity = (TextView) itemView.findViewById(R.id.quantity);
             merchantId = (TextView) itemView.findViewById(R.id.merchantId);
