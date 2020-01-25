@@ -88,7 +88,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 }
                 cartViewHolder.quantityText.setText(String.valueOf(Integer.parseInt(cartViewHolder.quantityText.getText().toString()) + 1));
                 dataItem.setQuantity(Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
-                iCartCommunicator.updateQuantity(dataItem.getProductId(), Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
+                iCartCommunicator.updateQuantity(dataItem.getProductId(), Integer.parseInt(cartViewHolder.quantityText.getText().toString()),dataItem.getMerchantId());
             }
         });
         cartViewHolder.deductQuantity.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     cartViewHolder.deductQuantity.setEnabled(true);
                     cartViewHolder.quantityText.setText(String.valueOf(Integer.parseInt(cartViewHolder.quantityText.getText().toString()) - 1));
                     dataItem.setQuantity(Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
-                    iCartCommunicator.updateQuantity(dataItem.getProductId(), Integer.parseInt(cartViewHolder.quantityText.getText().toString()));
+                    iCartCommunicator.updateQuantity(dataItem.getProductId(), Integer.parseInt(cartViewHolder.quantityText.getText().toString()),dataItem.getMerchantId());
                 }
             }
         });
@@ -137,7 +137,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     public interface ICartCommunicator {
-        boolean updateQuantity(String productId, int quantity);
+        boolean updateQuantity(String productId, int quantity,String merchantId);
 
         boolean removeFromCart(String merchantId, String productId);
     }

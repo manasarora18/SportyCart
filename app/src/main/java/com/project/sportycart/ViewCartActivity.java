@@ -52,11 +52,11 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
     //update quantity of cart for the user id(75 currently)
     @Override
-    public boolean updateQuantity(String productId, int quantity) {
+    public boolean updateQuantity(String productId, int quantity,String merchantId) {
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         //Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, userId, quantity);
-        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity);
+        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity,merchantId);
         callUpdateQuantity.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -109,6 +109,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 System.out.println(dataItemList);
                 recyclerView.setLayoutManager(cartLayoutManager);
                 recyclerView.setHasFixedSize(true);
+
                 adapter = new CartAdapter(dataItemList, ViewCartActivity.this);
                 recyclerView.setAdapter(adapter);
                 System.out.println("Inside OnResponse");
@@ -138,14 +139,14 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         confirmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
-                String userId = sharedPreferences.getString("UserId", "");
-                if (userId.equals("")) {
+                //sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+                //String userId = sharedPreferences.getString("UserId", "");
+                /*if (userId.equals("")) {
                     Intent loginFirst = new Intent(ViewCartActivity.this, Login.class);
                     Toast.makeText(getApplicationContext(), "Login First to Order", Toast.LENGTH_SHORT);
                     loginFirst.putExtra("CartPerson", "LoginFirst");
                     startActivity(loginFirst);
-                } else {
+                } else {*/
                     Intent orderIntent = new Intent(getApplicationContext(), OrderActivity.class);
                     double sum = 0;
                     for (Cart cart : dataItemList) {
@@ -163,7 +164,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                         toast.show();
                     }
                 }
-            }
+            //}
         });
     }
 }

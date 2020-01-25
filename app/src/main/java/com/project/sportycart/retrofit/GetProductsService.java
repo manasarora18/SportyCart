@@ -18,19 +18,19 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface GetProductsService {
-    @GET("/productService/product/getAllProducts")
+    @GET("/product-service/product/getAllProducts")
     Call<List<Product>> getAllProducts();
 
-    @GET("/productService/product/showProducts/{categoryId}")
+    @GET("/product-service/product/showProducts/{categoryId}")
     Call<CategoryPageResponse> getCategoryProducts(@Path("categoryId") Integer categoryId , @Query("pageNo") int page, @Query("pageSize") int size);
 
-    @GET("/searchService/search/{str}")
+    @GET("/search-service/search/{str}")
     Call<List<Product>> getSearchData(@Path("str")String str);
 
-    @GET("/merchantService/productList/getProductList/{pid}")
+    @GET("/merchant-service/productList/getProductList/{pid}")
     Call <List<MerchantDetails>> getMerchantDetails(@Path("pid") String pid);
 
-    @POST("/orderService/cart/addToCart")
+    @POST("/order-service/cart/addToCart")
     Call<String> addToCart(@Body Cart cart);
 
     @POST("/register")

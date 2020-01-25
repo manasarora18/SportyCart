@@ -7,12 +7,12 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/userId"
+        android:id="@+id/yourLogins"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:gravity="center_horizontal"
-        android:text="User Id"
+        android:text="Your Logins"
         android:textSize="36dp" />
 
     <androidx.recyclerview.widget.RecyclerView
