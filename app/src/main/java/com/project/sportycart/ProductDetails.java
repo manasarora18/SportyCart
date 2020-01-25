@@ -3,12 +3,14 @@ package com.project.sportycart;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.adapter.ProductAdapter;
 import com.project.sportycart.entity.Cart;
@@ -16,7 +18,9 @@ import com.project.sportycart.entity.MerchantDetails;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +31,7 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
     private SharedPreferences sharedPreferences;
     private MerchantDetails merchantDetails;
     private ProductAdapter productAdapter;
-    private Cart cart=new Cart();
+    private Cart cart = new Cart();
     String pid;
 
     @Override
@@ -65,22 +69,22 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
 //        System.out.println("PID"+pid);
 
 
-        GetProductsService getProductsService=RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-        Call<List<MerchantDetails>> call=getProductsService.getMerchantDetails(pid);
+        GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+        Call<List<MerchantDetails>> call = getProductsService.getMerchantDetails(pid);
         call.enqueue(new Callback<List<MerchantDetails>>() {
             @Override
             public void onResponse(Call<List<MerchantDetails>> call, Response<List<MerchantDetails>> response) {
-                mercRecyclerView=findViewById(R.id.merc_recycler_view);
-                List<MerchantDetails>merchantDetailsList=response.body();
-                productAdapter=new ProductAdapter(merchantDetailsList,ProductDetails.this);
-                GridLayoutManager gridLayoutManager=new GridLayoutManager(getApplicationContext(), 1);
+                mercRecyclerView = findViewById(R.id.merc_recycler_view);
+                List<MerchantDetails> merchantDetailsList = response.body();
+                productAdapter = new ProductAdapter(merchantDetailsList, ProductDetails.this);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
                 mercRecyclerView.setLayoutManager(gridLayoutManager);
                 mercRecyclerView.setAdapter(productAdapter);
             }
 
             @Override
             public void onFailure(Call<List<MerchantDetails>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
             }
         });
     }
@@ -89,17 +93,17 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
     public void onClick(MerchantDetails merchantDetails) {
         cart.setProductId(pid);
         cart.setQuantity(1);
-        sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
-        String userId=sharedPreferences.getString("UserId","");
+        sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("UserId", "");
 //        cart.setUserId(userId);
 
         cart.setUserId("75");
         cart.setPrice(merchantDetails.getPrice());
         cart.setMerchantId(merchantDetails.getMerchantId());
         System.out.println(cart);
-        GetProductsService getProductsService= RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+        GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
 
-        Call<String> call=getProductsService.addToCart(cart);
+        Call<String> call = getProductsService.addToCart(cart);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -112,7 +116,7 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(ProductDetails.this,t.getMessage(),Toast.LENGTH_SHORT);
+                Toast.makeText(ProductDetails.this, t.getMessage(), Toast.LENGTH_SHORT);
                 System.out.println("FAILED A CALL");
 
             }

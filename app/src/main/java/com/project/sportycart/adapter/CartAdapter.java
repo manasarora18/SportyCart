@@ -25,7 +25,6 @@ import retrofit2.Call;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private List<Cart> cartList;
     public ICartCommunicator iCartCommunicator;
-    private Context context;
     private List<Product> cartProductList;
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {
@@ -65,20 +64,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(final CartViewHolder cartViewHolder, int position) {
         final Cart dataItem = cartList.get(position);
-        //Product product=new Product();
-        //product.setProductId(dataItem.getProductId());
+
+        //fetching all products
         cartProductList = ProductCollection.get();
         Product cartProduct = new Product();
         for (Product product : cartProductList) {
             if (product.getProductId().equals(dataItem.getProductId()))
                 cartProduct = product;
         }
-        //Glide.with(cartViewHolder.imageView.getContext()).load(dataItem.getImageUrl().toString()).into(cartViewHolder.imageView);
         System.out.println(cartProduct.getImageUrl());
+        //Image of product
         Picasso.with(cartViewHolder.imageView.getContext()).load(cartProduct.getImageUrl()).resize(200, 200).centerCrop().into(cartViewHolder.imageView);
         cartViewHolder.textView.setText(cartProduct.getName()
                 + "\nRs: " + dataItem.getPrice()
                 + "\nMerchant: " + dataItem.getMerchantId());
+
+        //Cart quantity increment-decrement buttons
         cartViewHolder.incrementQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,8 +112,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 }
             }
         });
+
+        //set quantity
         cartViewHolder.quantityText.setText(String.valueOf(dataItem.getQuantity()));
-        //deleteCartItem = findViewById(R.id.removeCartItem);
+
+        //delete item from cart
         cartViewHolder.deleteCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,8 +126,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 notifyItemChanged(model);
                 notifyItemRangeChanged(0, getItemCount() + 1);
                 notifyItemRangeRemoved(getItemCount() + 1, prevSize);
-                //iCartCommunicator.removeFromCart(dataItem.getMerchantId(),dataItem.getProductId());
-                //v.setVisibility(View.INVISIBLE);
+
             }
         });
     }

@@ -22,7 +22,7 @@ public class OrderTable{
     private String price;
 
     @SerializedName("rating")
-    private int rating;
+    private double rating;
 
     @SerializedName("userId")
     private String userId;
@@ -75,11 +75,11 @@ public class OrderTable{
         return price;
     }
 
-    public void setRating(int rating){
+    public void setRating(double rating){
         this.rating = rating;
     }
 
-    public int getRating(){
+    public double getRating(){
         return rating;
     }
 
