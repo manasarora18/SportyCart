@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // this is manas branch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        toolbar=findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
+         toolbar=findViewById(R.id.main_toolbar);
+         setSupportActionBar(toolbar);
 
          drawerLayout=findViewById(R.id.drawer_layout);
          navigationView=findViewById(R.id.nav_view);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setTitle("SportyCart");
         toolbar.setSubtitle("Making you sporty!");
-//        toolbar.setLogo(android.R.drawable.sym_def_app_icon);
+        toolbar.setLogo(R.drawable.ic_directions_run_black_24dp);
 
         cartToolbarButton = (Button)findViewById(R.id.carttoolbarbtn);
         cartToolbarButton.setOnClickListener(new View.OnClickListener() {

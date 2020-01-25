@@ -1,7 +1,7 @@
 package com.project.sportycart;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.project.sportycart.categoryActivity.ContentItem;
 import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.RegisterUser;
 import com.project.sportycart.retrofit.GetProductsService;
@@ -26,16 +27,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity{
     private RegisterUser registerUser=new RegisterUser();
+    private Context context;
     private AccessTokenDTO accessTokenDTO;
     private GoogleSignInClient mGoogleSignInClient;
-    private static final int RC_SIGN_IN=9001;
+    private GoogleSignInOptions gso;
+    private int RC_SIGN_IN;
     String TAG="logCheck";
     private static final String username="manas@coviam.com";
     private static final String password="1234";
     SharedPreferences sp;
 
+    {RC_SIGN_IN = 9001;
+    context=this;
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -58,8 +64,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent registerIntent=new Intent(Login.this,Register.class);
-            startActivity(registerIntent);
+                Intent registerIntent=new Intent(Login.this,Register.class);
+                startActivity(registerIntent);
             }
 
         });
@@ -112,31 +118,41 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             finish();
         }
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("959388190902-n2h383o5ej00boqakorh0qn4iodcnd95.apps.googleusercontent.com")
                 .requestEmail()
+                .requestProfile()
                 .build();
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-
-        Button loginGithub=findViewById(R.id.loginGithub);
-        loginGithub.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent githubIntent= new Intent(Login.this,LoginGithub.class);
-                Toast.makeText(getApplicationContext(),"GitHubLogin",Toast.LENGTH_SHORT).show();
+                if(v.getId()==R.id.sign_in_button){
+                    signIn();
+                }
             }
         });
 
-        Button loginFacebook=findViewById(R.id.loginFacebook);
-        loginFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent facebookIntent=new Intent(Login.this,LoginFacebook.class);
-                Toast.makeText(getApplicationContext(),"FacebookLogin",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Button loginGithub=findViewById(R.id.loginGithub);
+//        loginGithub.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent githubIntent= new Intent(Login.this,LoginGithub.class);
+//                Toast.makeText(getApplicationContext(),"GitHubLogin",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+//        Button loginFacebook=findViewById(R.id.loginFacebook);
+//        loginFacebook.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent facebookIntent=new Intent(Login.this,LoginFacebook.class);
+//                Toast.makeText(getApplicationContext(),"FacebookLogin",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         Button skipSignIn=findViewById(R.id.skip);
         skipSignIn.setOnClickListener(new View.OnClickListener() {
@@ -168,11 +184,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         return true;
     }
 
-    @Override
-    public void onClick(View v) {
-        signIn();
-
-    }
 
     private void signIn() {
         Intent signInIntent=mGoogleSignInClient.getSignInIntent();
@@ -180,7 +191,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==RC_SIGN_IN){
@@ -202,12 +213,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             editor.putString("Email",account.getEmail()).apply();
             //ID TOKEN SENT AT BACKEND
             String idToken=account.getIdToken();
+            System.out.println(idToken+"IDTOKEN");
             editor.commit();
             Intent GoogleSignIntent =new Intent(Login.this, MainActivity.class);
             GoogleSignIntent.putExtra("Email",account.getEmail());
             GoogleSignIntent.putExtra("User",account.getDisplayName());
+            GetProductsService getProductsService=RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+            Call<AccessTokenDTO> call=getProductsService.sendGoogleLogin(idToken);
+            call.enqueue(new Callback<AccessTokenDTO>() {
+                @Override
+                public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
+                    String userId=response.body().getUserId();
+                    System.out.println("USERID"+userId);
+
+                }
+
+                @Override
+                public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
+                    System.out.println("API CALL FAILED");
+
+                }
+            });
 
             startActivity(GoogleSignIntent);
+//            setResult(RESULT_OK,intent);
             finish();
 
         } catch (ApiException e) {
@@ -215,3 +244,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 }
+//GOOGLE API CLIENT LOGIN KEY
+//797175891043-3je1gnb30pq9m8eum6us67uh2c3t7eie.apps.googleusercontent.com
+//AB:1E:23:61:7D:7A:4A:9E:A7:DB:88:4A:4B:B9:9A:2B:CD:05:23:F3
+//yrx5bAa79Cyvjs2AQk1ct70s
+
+//GOOGLE API LOGIN KEY
+//797175891043-tt721gbd5fvm8i8ckg3kobr38jn4a31b.apps.googleusercontent.com
+//FKtPQzX-PybNcCOA65t8tl5v

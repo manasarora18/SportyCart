@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.project.sportycart.categoryActivity.ContentItem;
 import com.project.sportycart.entity.Product;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
-
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -38,11 +36,13 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
     GridLayoutManager gridLayoutManager;
     private int pos;
     private int totalPages;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_products);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
 //        System.out.println("IN CATEGORY");
         list = new ArrayList<>();
@@ -61,6 +61,7 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                progressBar.setVisibility(View.VISIBLE);
                 pos = gridLayoutManager.findLastCompletelyVisibleItemPosition();
 
                 if((pos==list.size()-1)&&(page!=totalPages)){
@@ -88,6 +89,7 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
                 totalPages =  response.body().getTotalPages();
 //                categoryAdapter=new CategoryAdapter(CategoryProducts.this,list,CategoryProducts.this);
 //                categoryRecyclerView.setAdapter(categoryAdapter);
+                progressBar.setVisibility(View.INVISIBLE);
                 categoryAdapter.notifyItemRangeInserted(length,response.body().getContent().size());
                 System.out.println("API HIT");
             }

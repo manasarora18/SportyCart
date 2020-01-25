@@ -3,6 +3,7 @@ package com.project.sportycart.retrofit;
 import com.project.sportycart.categoryActivity.CategoryPageResponse;
 import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.Cart;
+import com.project.sportycart.entity.LoginAccessTokenDTO;
 import com.project.sportycart.entity.MerchantDetails;
 import com.project.sportycart.entity.OrderTable;
 import com.project.sportycart.entity.Product;
@@ -18,26 +19,32 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface GetProductsService {
-    @GET("/productService/product/getAllProducts")
+    @GET("/product-service/product/getAllProducts")
     Call<List<Product>> getAllProducts();
 
-    @GET("/productService/product/showProducts/{categoryId}")
+    @GET("/product-service/product/showProducts/{categoryId}")
     Call<CategoryPageResponse> getCategoryProducts(@Path("categoryId") Integer categoryId , @Query("pageNo") int page, @Query("pageSize") int size);
 
-    @GET("/searchService/search/{str}")
+    @GET("/search-service/search/{str}")
     Call<List<Product>> getSearchData(@Path("str")String str);
 
-    @GET("/merchantService/productList/getProductList/{pid}")
+    @GET("/merchant-service/productList/getProductList/{pid}")
     Call <List<MerchantDetails>> getMerchantDetails(@Path("pid") String pid);
 
-    @POST("/orderService/cart/addToCart")
+    @POST("/order-service/cart/addToCart")
     Call<String> addToCart(@Body Cart cart);
 
-    @POST("/register")
+    @POST("/login-service/register")
     Call <String> addUser(@Body RegisterUser registerUser);
 
-    @POST("/login")
+    @POST("/login-service/login")
     Call<AccessTokenDTO> loginUser(@Body RegisterUser registerUser);
+
+    @GET("/login-service/facebooklogin/{loginAccessTokenDTO}")
+    Call<AccessTokenDTO> sendFacebookLogin(@Path("loginAccessTokenDTO") String loginAccessTokenDTO);
+
+    @GET("/login-service/googlelogin/{loginAccessToken}")
+    Call<AccessTokenDTO> sendGoogleLogin(@Path("loginAccessToken") String loginAccessToken);
 
     @GET("/orderLog")
     Call<List<OrderTable>> getOrderLog(RegisterUser registerUser);
