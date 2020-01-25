@@ -5,11 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.project.sportycart.R;
 import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.MerchantDetails;
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -18,28 +21,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private Cart cart;
     private MerchantDetailsInterface merchantDetailsInterface;
 
-    public ProductAdapter(List<MerchantDetails>merchantDetailsList,MerchantDetailsInterface merchantDetailsInterface){
-        this.merchantDetailsList=merchantDetailsList;
-        this.merchantDetailsInterface=merchantDetailsInterface;
+    public ProductAdapter(List<MerchantDetails> merchantDetailsList, MerchantDetailsInterface merchantDetailsInterface) {
+        this.merchantDetailsList = merchantDetailsList;
+        this.merchantDetailsInterface = merchantDetailsInterface;
     }
-    public class ProductViewHolder extends RecyclerView.ViewHolder{
+
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView merchantName;
         TextView priceDetails;
         Button addToCart;
 
-        public ProductViewHolder(View itemView){
+        public ProductViewHolder(View itemView) {
             super(itemView);
-            this.merchantName=itemView.findViewById(R.id.merchantName);
-            this.priceDetails=itemView.findViewById(R.id.priceDetails);
-            this.addToCart=itemView.findViewById(R.id.addToCart);
+            this.merchantName = itemView.findViewById(R.id.merchantName);
+            this.priceDetails = itemView.findViewById(R.id.priceDetails);
+            this.addToCart = itemView.findViewById(R.id.addToCart);
         }
     }
 
     @NonNull
     @Override
     public ProductAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
-        View view= layoutInflater.inflate(R.layout.merc_product_items,parent,false);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.merc_product_items, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -57,13 +61,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        if(merchantDetailsList!=null){
+        if (merchantDetailsList != null) {
             return merchantDetailsList.size();
         }
         return 0;
     }
 
-    public interface MerchantDetailsInterface{
+    public interface MerchantDetailsInterface {
         void onClick(MerchantDetails merchantDetails);
     }
 }

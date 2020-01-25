@@ -1,4 +1,5 @@
 package com.project.sportycart;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,15 +9,19 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.adapter.CartAdapter;
 import com.project.sportycart.entity.Cart;
 import com.project.sportycart.retrofit.GetCartApis;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,11 +31,12 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     private SharedPreferences sharedPreferences;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager cartLayoutManager;
-//rucha
+    //rucha
     GetCartApis getCartApis;
     List<Cart> dataItemList;
     public boolean flag = true;
     public boolean cartFlag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         //confirm order --> showing total amount of all cart items of a user
         processConfirmOrder();
     }
+
     //update quantity of cart for the user id(75 currently)
     @Override
     public boolean updateQuantity(String productId, int quantity) {
@@ -56,6 +63,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 System.out.println("Inside updateQuantity OnResponse");
                 flag = true;
             }
+
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 System.out.println("Inside updateQuantity OnFailure");
@@ -64,6 +72,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         });
         return flag;
     }
+
     @Override
     public boolean removeFromCart(String merchantId, String productId) {
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
@@ -76,6 +85,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 System.out.println("Inside OnResponse RemoveFromCart");
                 cartFlag = true;
             }
+
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 System.out.println("Inside OnFailure RemoveFromCart");
@@ -84,6 +94,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         });
         return cartFlag;
     }
+
     void getCartItems() {
         getCartApis = RetrofitClientInstance.getRetrofitInstance().create(GetCartApis.class);
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
@@ -106,13 +117,12 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                     for (Cart data : dataItemList) {
                         CartCollection.add(data);
                     }
-                }
-                else
-                {
-                    Toast toast=Toast.makeText(getApplicationContext(),"Cart is Empty!!!",Toast.LENGTH_SHORT);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Cart is Empty!!!", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
+
             @Override
             public void onFailure(Call<List<Cart>> call, Throwable t) {
                 System.out.println("Inside OnFailure");
@@ -138,11 +148,11 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                 } else {
                     Intent orderIntent = new Intent(getApplicationContext(), OrderActivity.class);
                     double sum = 0;
-                    for (Cart c : dataItemList) {
-                        if (c.getQuantity() == 0) {
+                    for (Cart cart : dataItemList) {
+                        if (cart.getQuantity() == 0) {
                             continue;
                         }
-                        sum = sum + (c.getPrice()) * c.getQuantity();
+                        sum = sum + (cart.getPrice()) * cart.getQuantity();
                         System.out.println(String.valueOf(sum));
                     }
                     if (sum > 0) {
