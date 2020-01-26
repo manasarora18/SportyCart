@@ -105,7 +105,12 @@ public class Login extends AppCompatActivity{
                                 String userId=accessTokenDTO.getUserId();
                                 SharedPreferences.Editor editor=sp.edit();
                                 editor.putString("UserId",userId).apply();
+                                String email=registerUser.getEmail();
+                                editor.putString("Email",email).apply();
                                 editor.commit();
+                                System.out.println("LOGIN DONE");
+                                Intent loginIntent=new Intent(Login.this,MainActivity.class);
+                                startActivity(loginIntent);
 
                             }
 
@@ -200,8 +205,6 @@ public class Login extends AppCompatActivity{
                     System.out.println("USERID"+userId);
                     editor.putString("UserId",userId).apply();
                     editor.commit();
-
-
                 }
 
                 @Override
