@@ -202,6 +202,8 @@ public class Login extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent skipSignInIntent=new Intent(Login.this,MainActivity.class);
+                String guestUserId=String.valueOf(Math.random());
+
                 startActivity(skipSignInIntent);
             }
         });
