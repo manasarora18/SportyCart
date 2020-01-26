@@ -44,7 +44,6 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         recyclerView = findViewById(R.id.recycler_view);
         cartLayoutManager = new LinearLayoutManager(this);
         //all cart related apis
-        //currently user id ->75
         getCartItems();
         //confirm order --> showing total amount of all cart items of a user
         processConfirmOrder();
@@ -52,10 +51,11 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
 
     //update quantity of cart for the user id(75 currently)
     @Override
-    public boolean updateQuantity(String productId, int quantity,String merchantId) {
+    public boolean updateQuantity(String productId, int quantity, String merchantId) {
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
-        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, userId, quantity,merchantId);
+        System.out.println(userId+"VIEWCART UPDATE GUEST USERID");
+        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, userId, quantity, merchantId);
 //        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity,merchantId);
         callUpdateQuantity.enqueue(new Callback<Boolean>() {
             @Override
@@ -77,6 +77,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     public boolean removeFromCart(String merchantId, String productId) {
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
+        System.out.println(userId+"VIEWCART REMOVE GUEST USERID");
         Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem(userId, merchantId, productId);
 //        Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem("75", merchantId, productId);
         callRemoveFromCart.enqueue(new Callback<Boolean>() {
@@ -99,6 +100,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         getCartApis = RetrofitClientInstance.getRetrofitInstance().create(GetCartApis.class);
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
+        System.out.println(userId+"VIEWCART GETCART GUEST USERID");
         //Get Cart Details of a user
         Call<List<Cart>> call = getCartApis.getAllCartItems(userId);
 //        Call<List<Cart>> call = getCartApis.getAllCartItems("75");
@@ -140,13 +142,8 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
             @Override
             public void onClick(View v) {
                 sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
-                String userId = sharedPreferences.getString("UserId", "");
-                /*if (userId.equals("")) {
-                    Intent loginFirst = new Intent(ViewCartActivity.this, Login.class);
-                    Toast.makeText(getApplicationContext(), "Login First to Order", Toast.LENGTH_SHORT);
-                    loginFirst.putExtra("CartPerson", "LoginFirst");
-                    startActivity(loginFirst);
-                } else {*/
+                String loginCheck = sharedPreferences.getString("LoginCheck", "false");
+                if (loginCheck.equals("true")) {
                     Intent orderIntent = new Intent(getApplicationContext(), OrderActivity.class);
                     double sum = 0;
                     for (Cart cart : dataItemList) {
@@ -164,7 +161,15 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
                         toast.show();
                     }
                 }
-            //}
+                else{
+                    Intent loginNow = new Intent(ViewCartActivity.this,Login.class);
+                    loginNow.putExtra("CartPerson","true");
+                    sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+                    String guestUserId=sharedPreferences.getString("UserId","");
+                    loginNow.putExtra("GuestUserId",guestUserId);
+                    startActivity(loginNow);
+                }
+            }
         });
     }
 }

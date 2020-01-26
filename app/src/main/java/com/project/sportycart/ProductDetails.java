@@ -96,7 +96,7 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         cart.setUserId(userId);
-//        cart.setUserId("75");
+        System.out.println(userId+"PRODUCTDETAILS ADDTOCART GUEST USERID");
         cart.setPrice(merchantDetails.getPrice());
         cart.setMerchantId(merchantDetails.getMerchantId());
         System.out.println(cart);

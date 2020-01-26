@@ -46,6 +46,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          setContentView(R.layout.activity_main);
          toolbar=findViewById(R.id.main_toolbar);
          setSupportActionBar(toolbar);
+         sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
+         String UserId=sharedPreferences.getString("UserId","");
+
+        Intent loginIntent = getIntent();
+        String cartValue=loginIntent.getStringExtra("GuestUserId");
+        if(cartValue!=""){
+            GetProductsService getProductsService=RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+            Call<Boolean>call=getProductsService.updateUserLogin(cartValue,UserId);
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if(response.body()==true){
+                        Toast.makeText(getApplicationContext(),"SuccessRedirect",Toast.LENGTH_SHORT).show();
+                        Intent cartRedirect=new Intent(MainActivity.this,ViewCartActivity.class);
+                        startActivity(cartRedirect);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+
+                }
+            });
+        }
 
          drawerLayout=findViewById(R.id.drawer_layout);
          navigationView=findViewById(R.id.nav_view);
@@ -53,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          String userSP=sharedPreferences.getString("User","");
          String emailSP=sharedPreferences.getString("Email","");
          View headerView = navigationView.getHeaderView(0);
+         String userId=sharedPreferences.getString("UserId","");
+         System.out.println(userId+"MAIN ACTIVITY GUEST USERID");
          username = (TextView) headerView.findViewById(R.id.userName);
          username.setText(userSP);
          useremail=(TextView)headerView.findViewById(R.id.userEmail);

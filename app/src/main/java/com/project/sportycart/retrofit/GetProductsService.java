@@ -45,6 +45,9 @@ public interface GetProductsService {
     @GET("/login-service/googlelogin/{loginAccessToken}")
     Call<AccessTokenDTO> sendGoogleLogin(@Path("loginAccessToken") String loginAccessToken);
 
+    @POST("/order-service/cart/updateUserOnLogin/{guestUserId}/{userId}")
+    Call<Boolean> updateUserLogin(@Path("guestUserId")String guestUserId, @Path("userId")String userId);
+
     @GET("/orderLog")
     Call<List<OrderTable>> getOrderLog(RegisterUser registerUser);
 
