@@ -59,7 +59,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+<!--    <ImageView-->
+<!--        android:id="@+id/productimage"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="210dp"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:padding="10dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/description"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/title" />-->
+
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/productimage"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -68,6 +82,7 @@
         android:layout_marginEnd="210dp"
         android:layout_marginBottom="24dp"
         android:padding="10dp"
+        android:background="#03A9F4"
         app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

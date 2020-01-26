@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.adapter.ProductAdapter;
 import com.project.sportycart.entity.Cart;
@@ -42,7 +43,8 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
         final Intent productIntent = getIntent();
 
         String imageUrl = productIntent.getStringExtra("Image");
-        ImageView imageView = findViewById(R.id.productimage);
+        PhotoView imageView =findViewById(R.id.productimage);
+//        ImageView imageView = findViewById(R.id.productimage);
 //        Glide.with(getBaseContext()).load(imageUrl).into(imageView);
         Picasso.with(getBaseContext()).load(imageUrl).into(imageView);
 

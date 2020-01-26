@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 editor.commit();
                 Intent logoutIntent=new Intent(MainActivity.this,Login.class);
                 startActivity(logoutIntent);
+                break;
             case R.id.order_nav_menu:
                 Intent orderHistoryIntent=new Intent(MainActivity.this,OrderLog.class);
                 SharedPreferences sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                }
 //                else{
                     startActivity(orderHistoryIntent);
+                    break;
 //                }
             default:
                 return super.onOptionsItemSelected(item);

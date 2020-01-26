@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
+import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.RegisterUser;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
@@ -71,16 +72,16 @@ public class Register extends AppCompatActivity {
 
                 if(nullFlag==false && passwordCheckFail==false){
                     GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-                    Call<String> call= getProductsService.addUser(registerUser);
-                    call.enqueue(new Callback<String>() {
+                    Call<AccessTokenDTO> call= getProductsService.addUser(registerUser);
+                    call.enqueue(new Callback<AccessTokenDTO>() {
                         @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
+                        public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
 //                            registerUser.setUserId("userId");
                             System.out.println("REGISTERED");
                         }
 
                         @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                        public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
                             System.out.println("Invalid Backend Response"+t.getMessage());
 
                         }

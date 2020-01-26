@@ -34,7 +34,7 @@ public interface GetProductsService {
     Call<String> addToCart(@Body Cart cart);
 
     @POST("/login-service/register")
-    Call <String> addUser(@Body RegisterUser registerUser);
+    Call <AccessTokenDTO> addUser(@Body RegisterUser registerUser);
 
     @POST("/login-service/login")
     Call<AccessTokenDTO> loginUser(@Body RegisterUser registerUser);
