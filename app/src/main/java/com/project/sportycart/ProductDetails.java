@@ -44,8 +44,6 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
 
         String imageUrl = productIntent.getStringExtra("Image");
         PhotoView imageView =findViewById(R.id.productimage);
-//        ImageView imageView = findViewById(R.id.productimage);
-//        Glide.with(getBaseContext()).load(imageUrl).into(imageView);
         Picasso.with(getBaseContext()).load(imageUrl).into(imageView);
 
         String productName = productIntent.getStringExtra("ProductName");
@@ -98,7 +96,6 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         cart.setUserId(userId);
-
 //        cart.setUserId("75");
         cart.setPrice(merchantDetails.getPrice());
         cart.setMerchantId(merchantDetails.getMerchantId());
@@ -113,14 +110,12 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
                         "Added to Cart", Snackbar.LENGTH_SHORT);
                 snackbar.show();
                 System.out.println("MADE A CALL");
-
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(ProductDetails.this, t.getMessage(), Toast.LENGTH_SHORT);
                 System.out.println("FAILED A CALL");
-
             }
         });
 
