@@ -35,8 +35,8 @@ public class Login extends AppCompatActivity{
     private GoogleSignInOptions gso;
     private int RC_SIGN_IN;
     String TAG="logCheck";
-    private static final String username="manas@coviam.com";
-    private static final String password="1234";
+//    private static final String username="manas@coviam.com";
+//    private static final String password="1234";
     SharedPreferences sp;
 
     {RC_SIGN_IN = 9001;
@@ -95,12 +95,27 @@ public class Login extends AppCompatActivity{
                     else {
                         registerUser.setEmail(user1);
                         registerUser.setPassword(pw);
-                        if(Valid(registerUser)){
-                            System.out.println("SUCCESS CUSTOM LOGIN");
-                        }
-                        else{
-                            System.out.println("FAILED LOGIN");
-                        }
+                        GetProductsService getProductsService= RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+                        Call<AccessTokenDTO> call=getProductsService.loginUser(registerUser);
+                        call.enqueue(new Callback<AccessTokenDTO>() {
+                            @Override
+                            public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
+                                accessTokenDTO=response.body();
+                                sp=getSharedPreferences("LoginData",MODE_PRIVATE);
+                                String userId=accessTokenDTO.getUserId();
+                                SharedPreferences.Editor editor=sp.edit();
+                                editor.putString("UserId",userId).apply();
+                                editor.commit();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
+                                Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
+                                        t.getMessage(), Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                        });
 
 //                        Toast.makeText(getApplicationContext(), "Sorry! Wrong user", Toast.LENGTH_SHORT).show();
                     }
@@ -132,24 +147,6 @@ public class Login extends AppCompatActivity{
             }
         });
 
-//        Button loginGithub=findViewById(R.id.loginGithub);
-//        loginGithub.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent githubIntent= new Intent(Login.this,LoginGithub.class);
-//                Toast.makeText(getApplicationContext(),"GitHubLogin",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        Button loginFacebook=findViewById(R.id.loginFacebook);
-//        loginFacebook.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent facebookIntent=new Intent(Login.this,LoginFacebook.class);
-//                Toast.makeText(getApplicationContext(),"FacebookLogin",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         Button skipSignIn=findViewById(R.id.skip);
         skipSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,27 +155,6 @@ public class Login extends AppCompatActivity{
                 startActivity(skipSignInIntent);
             }
         });
-    }
-
-    private boolean Valid(RegisterUser registerUser) {
-        Boolean loginFail=false;
-        GetProductsService getProductsService= RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-        Call<AccessTokenDTO> call=getProductsService.loginUser(registerUser);
-        call.enqueue(new Callback<AccessTokenDTO>() {
-            @Override
-            public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
-                accessTokenDTO=response.body();
-
-            }
-
-            @Override
-            public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
-                        t.getMessage(), Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            }
-        });
-        return true;
     }
 
 
