@@ -83,27 +83,23 @@ public class Login extends AppCompatActivity{
                     if (user1.length() == 0 || pw.length() == 0) {
                         Toast.makeText(getBaseContext(), "Enter Login Details", Toast.LENGTH_SHORT).show();
                     }
-                    else if (user1.equals(username) && pw.equals(password)) {
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putBoolean("LogInMode", true).apply();
-                        editor.putString("User", user1).apply();
-                        editor.commit();
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
+//                    else if (user1.equals(username) && pw.equals(password)) {
+//                        SharedPreferences.Editor editor = sp.edit();
+//                        editor.putBoolean("LogInMode", true).apply();
+//                        editor.putString("User", user1).apply();
+//                        editor.commit();
+//                        Intent intent = new Intent(Login.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
                     else {
                         registerUser.setEmail(user1);
                         registerUser.setPassword(pw);
                         if(Valid(registerUser)){
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putString("UserId",accessTokenDTO.getUserId());
-                            editor.putBoolean("LogInMode", true).apply();
-                            editor.putString("User", user1).apply();
-                            editor.commit();
-                            Intent intent = new Intent(Login.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            System.out.println("SUCCESS CUSTOM LOGIN");
+                        }
+                        else{
+                            System.out.println("FAILED LOGIN");
                         }
 
 //                        Toast.makeText(getApplicationContext(), "Sorry! Wrong user", Toast.LENGTH_SHORT).show();
@@ -172,6 +168,7 @@ public class Login extends AppCompatActivity{
             @Override
             public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
                 accessTokenDTO=response.body();
+
             }
 
             @Override
@@ -207,7 +204,7 @@ public class Login extends AppCompatActivity{
             System.out.println(account.getDisplayName());
 
             sp=getSharedPreferences("LoginData",MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
+            final SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("LogInMode", true).apply();
             editor.putString("User", account.getDisplayName()).apply();
             editor.putString("Email",account.getEmail()).apply();
@@ -225,6 +222,9 @@ public class Login extends AppCompatActivity{
                 public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
                     String userId=response.body().getUserId();
                     System.out.println("USERID"+userId);
+                    editor.putString("UserId",userId).apply();
+                    editor.commit();
+
 
                 }
 
