@@ -102,15 +102,23 @@ public class Login extends AppCompatActivity{
                             public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
                                 accessTokenDTO=response.body();
                                 sp=getSharedPreferences("LoginData",MODE_PRIVATE);
-                                String userId=accessTokenDTO.getUserId();
-                                SharedPreferences.Editor editor=sp.edit();
-                                editor.putString("UserId",userId).apply();
-                                String email=registerUser.getEmail();
-                                editor.putString("Email",email).apply();
-                                editor.commit();
-                                System.out.println("LOGIN DONE");
-                                Intent loginIntent=new Intent(Login.this,MainActivity.class);
-                                startActivity(loginIntent);
+
+                                if(accessTokenDTO.getCheck()) {
+                                    System.out.println(accessTokenDTO.getCheck()+"CHECK");
+                                    System.out.println("LOGIN DONE");
+                                    String userId=accessTokenDTO.getUserId();
+                                    SharedPreferences.Editor editor=sp.edit();
+                                    editor.putString("UserId",userId).apply();
+                                    String email=registerUser.getEmail();
+                                    editor.putString("Email",email).apply();
+                                    editor.commit();
+                                    Intent loginIntent = new Intent(Login.this, MainActivity.class);
+                                    startActivity(loginIntent);
+                                }
+                                else{
+                                    Snackbar snackbar=Snackbar.make(findViewById(R.id.login_layout),"Invalid Login Details",Snackbar.LENGTH_LONG);
+                                    System.out.println(accessTokenDTO.getCheck()+"FAILCHECK");
+                                }
 
                             }
 
@@ -191,7 +199,7 @@ public class Login extends AppCompatActivity{
             editor.putString("Email",account.getEmail()).apply();
             //ID TOKEN SENT AT BACKEND
             String idToken=account.getIdToken();
-            System.out.println(idToken+"IDTOKEN");
+            System.out.println(idToken+"ID TOKEN");
             editor.commit();
             Intent GoogleSignIntent =new Intent(Login.this, MainActivity.class);
             GoogleSignIntent.putExtra("Email",account.getEmail());
@@ -202,7 +210,7 @@ public class Login extends AppCompatActivity{
                 @Override
                 public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
                     String userId=response.body().getUserId();
-                    System.out.println("USERID"+userId);
+                    System.out.println("USER ID"+userId);
                     editor.putString("UserId",userId).apply();
                     editor.commit();
                 }
@@ -215,7 +223,6 @@ public class Login extends AppCompatActivity{
             });
 
             startActivity(GoogleSignIntent);
-//            setResult(RESULT_OK,intent);
             finish();
 
         } catch (ApiException e) {
@@ -223,11 +230,4 @@ public class Login extends AppCompatActivity{
         }
     }
 }
-//GOOGLE API CLIENT LOGIN KEY
-//797175891043-3je1gnb30pq9m8eum6us67uh2c3t7eie.apps.googleusercontent.com
-//AB:1E:23:61:7D:7A:4A:9E:A7:DB:88:4A:4B:B9:9A:2B:CD:05:23:F3
-//yrx5bAa79Cyvjs2AQk1ct70s
 
-//GOOGLE API LOGIN KEY
-//797175891043-tt721gbd5fvm8i8ckg3kobr38jn4a31b.apps.googleusercontent.com
-//FKtPQzX-PybNcCOA65t8tl5v

@@ -10,6 +10,9 @@ public class AccessTokenDTO{
 	@SerializedName("userId")
 	private String userId;
 
+	@SerializedName("check")
+	private Boolean check;
+
 	public void setAccessToken(String accessToken){
 		this.accessToken = accessToken;
 	}
@@ -24,6 +27,14 @@ public class AccessTokenDTO{
 
 	public String getUserId(){
 		return userId;
+	}
+
+	public Boolean getCheck() {
+		return check;
+	}
+
+	public void setCheck(Boolean check) {
+		this.check = check;
 	}
 
 	@Override
