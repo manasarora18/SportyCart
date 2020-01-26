@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.project.sportycart.adapter.OrderLogAdapter;
@@ -27,6 +28,7 @@ public class OrderLog extends AppCompatActivity implements OrderLogAdapter.IOrde
     private RegisterUser registerUser;
     List<OrderTable> orderTableList;
     GetOrderApis getOrderApis;
+    private SharedPreferences sharedPreferences;
     boolean flag = true;
 
     @Override
@@ -38,9 +40,11 @@ public class OrderLog extends AppCompatActivity implements OrderLogAdapter.IOrde
         recyclerView.setLayoutManager(layoutManager);
 
         getOrderApis = RetrofitClientInstance.getRetrofitInstance().create(GetOrderApis.class);
+        sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("UserId", "");
 
 
-        Call<List<OrderTable>> callOrderList = getOrderApis.getRecentOrders("75");//userId
+        Call<List<OrderTable>> callOrderList = getOrderApis.getRecentOrders(userId);//userId
         callOrderList.enqueue(new Callback<List<OrderTable>>() {
             @Override
             public void onResponse(Call<List<OrderTable>> call, Response<List<OrderTable>> response) {

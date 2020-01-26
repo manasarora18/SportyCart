@@ -1,5 +1,6 @@
 package com.project.sportycart.adapter;
 
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,12 @@ import com.project.sportycart.entity.Product;
 
 import java.util.List;
 
+
 public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderViewHolder> {
     static List<OrderTable> list;
     public IOrderCommunicator iOrderCommunicator;
+    private SharedPreferences sharedPreferences;
+
 
     public OrderLogAdapter(List<OrderTable> List, IOrderCommunicator iOrderCommunicator) {
         this.list = List;
@@ -40,6 +44,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         final OrderTable orderTable = list.get(position);
         holder.orderId.setText(list.get(position).getOrderId());
+
         //holder.rating.setText( String.valueOf(list.get(position).getRating()) );
         holder.ratingBar.setRating(Float.parseFloat(String.valueOf(list.get(position).getRating())));
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -75,6 +80,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         holder.merchantId.setText(list.get(position).getMerchantId());
         //holder.timeStamp.setText(list.get(position).getTimeStamp());
 
+//        String userId = sharedPreferences.getString("UserId", "");
         holder.submitRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +89,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
                 //holder.ratingBar.getNumStars();
                 System.out.println("Submit:" + orderTable.getRating());
                 //holder.ratingBar.setRating();
-                iOrderCommunicator.setRating(orderTable.getOrderId(), orderTable.getProductId(), orderTable.getMerchantId(), "75", orderTable.getRating());
+                iOrderCommunicator.setRating(orderTable.getOrderId(), orderTable.getProductId(), orderTable.getMerchantId(), orderTable.getUserId(), orderTable.getRating());
                 holder.submitRating.setVisibility(View.INVISIBLE);
 
             }

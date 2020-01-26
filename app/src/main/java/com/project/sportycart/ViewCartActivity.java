@@ -55,8 +55,8 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     public boolean updateQuantity(String productId, int quantity,String merchantId) {
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
-        //Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, userId, quantity);
-        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity,merchantId);
+        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, userId, quantity,merchantId);
+//        Call<Boolean> callUpdateQuantity = getCartApis.updateCartQuantity(productId, "75", quantity,merchantId);
         callUpdateQuantity.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -77,8 +77,8 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     public boolean removeFromCart(String merchantId, String productId) {
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
-        //Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem(userId, merchantId, productId);
-        Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem("75", merchantId, productId);
+        Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem(userId, merchantId, productId);
+//        Call<Boolean> callRemoveFromCart = getCartApis.deleteCartItem("75", merchantId, productId);
         callRemoveFromCart.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -100,8 +100,8 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
         //Get Cart Details of a user
-        //Call<List<Cart>> call = getCartApis.getAllCartItems(userId);
-        Call<List<Cart>> call = getCartApis.getAllCartItems("75");
+        Call<List<Cart>> call = getCartApis.getAllCartItems(userId);
+//        Call<List<Cart>> call = getCartApis.getAllCartItems("75");
         call.enqueue(new Callback<List<Cart>>() {
             @Override
             public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
@@ -139,8 +139,8 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
         confirmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
-                //String userId = sharedPreferences.getString("UserId", "");
+                sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+                String userId = sharedPreferences.getString("UserId", "");
                 /*if (userId.equals("")) {
                     Intent loginFirst = new Intent(ViewCartActivity.this, Login.class);
                     Toast.makeText(getApplicationContext(), "Login First to Order", Toast.LENGTH_SHORT);
