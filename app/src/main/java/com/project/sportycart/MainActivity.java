@@ -59,12 +59,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    if(response.body()==true){
                         Toast.makeText(getApplicationContext(),"SuccessRedirect",Toast.LENGTH_SHORT).show();
                         System.out.println("OnResponse updateUserLogin/GuestUserLogin");
                         Intent cartRedirect=new Intent(MainActivity.this,ViewCartActivity.class);
                         startActivity(cartRedirect);
-                    }
                 }
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
@@ -86,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          useremail=(TextView)headerView.findViewById(R.id.userEmail);
          useremail.setText(emailSP);
 
+
         ActionBarDrawerToggle actionBarDrawerToggle=new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -106,9 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Intent cartIntent=new Intent(getApplicationContext(), ViewCartActivity.class);
                 startActivity(cartIntent);
-//                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
-//                        "CART EMPTY", Snackbar.LENGTH_SHORT);
-//                mySnackbar.show();
+
             }
         });
 
@@ -173,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(this, "this menu item clicked", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "this menu item clicked", Toast.LENGTH_SHORT).show();
         switch(item.getItemId()) {
             case R.id.cricket_nav_menu:
                 Intent catIntent1 = new Intent(this, CategoryProducts.class);
@@ -201,33 +198,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.startActivity(catIntent5);
                 break;
             case R.id.logout:
-                SharedPreferences preferences = getSharedPreferences("LoginData",MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.commit();
-                Intent logoutIntent=new Intent(MainActivity.this,Login.class);
-                startActivity(logoutIntent);
+                sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
+                String logincheckLogout=sharedPreferences.getString("LoginCheck","false");
+                if(logincheckLogout.equals("true")) {
+                    SharedPreferences preferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.commit();
+                    Intent logoutIntent = new Intent(MainActivity.this, Login.class);
+                    startActivity(logoutIntent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"LoginFirst",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.details_nav_menu:
+                sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
+                String logincheck=sharedPreferences.getString("LoginCheck","false");
+                if(logincheck.equals("true")) {
+                    Intent userDetails = new Intent(MainActivity.this, UserDetails.class);
+                    startActivity(userDetails);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"LoginFirst",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.order_nav_menu:
-                Intent orderHistoryIntent=new Intent(MainActivity.this,OrderLog.class);
-                SharedPreferences sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
-                String userId=sharedPreferences.getString("UserId","");
-                orderHistoryIntent.putExtra("UserId",userId);
-//                if(userId==""){
-//                    Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout),
-//                            "Login First", Snackbar.LENGTH_SHORT);
-//                    snackbar.show();
-//                }
-//                else{
+                sharedPreferences=getSharedPreferences("LoginData",MODE_PRIVATE);
+                String loginCheck=sharedPreferences.getString("LoginCheck","false");
+                if(loginCheck.equals("true")) {
+                    Intent orderHistoryIntent = new Intent(MainActivity.this, OrderLog.class);
+                    SharedPreferences sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+                    String userId = sharedPreferences.getString("UserId", "");
+                    orderHistoryIntent.putExtra("UserId", userId);
                     startActivity(orderHistoryIntent);
-                    break;
-//                }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"LoginFirst",Toast.LENGTH_SHORT).show();
+                }
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
     }
-
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
     }

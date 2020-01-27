@@ -38,7 +38,7 @@ public class LoginLog extends AppCompatActivity {
         loginRecyclerView = (RecyclerView)findViewById(R.id.login_recycle_view);
         loginRecyclerView.setLayoutManager(layoutManager);
         GetProductsService getProductsService= RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-        getProductsService.getLoginLog(registerUser).enqueue(new Callback<List<UserLog>>() {
+        getProductsService.getLoginLog(userId).enqueue(new Callback<List<UserLog>>() {
             @Override
             public void onResponse(Call<List<UserLog>> call, Response<List<UserLog>> response) {
                 List<UserLog> list = response.body();

@@ -1,9 +1,12 @@
 package com.project.sportycart;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +37,12 @@ public class Register extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
                 registerUsername = findViewById(R.id.registerusername);
                 String userName = registerUsername.getText().toString();
 
@@ -53,9 +62,10 @@ public class Register extends AppCompatActivity {
 
                 Boolean nullFlag = true;
                 Boolean passwordCheckFail = true;
-//                String message;
+                long largestNo=9999999999L;
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-                if (userName != null && email != null && password != null && confirmPassword != null && phone != 0) {
+                if (userName != null && email != null && password != null && confirmPassword != null && phone != 0 && phone>=1000000000L && phone<=largestNo && email.matches(emailPattern)) {
                     nullFlag = false;
                     if (confirmPassword.equals(password)) {
                         passwordCheckFail = false;
@@ -65,12 +75,14 @@ public class Register extends AppCompatActivity {
                         registerUser.setUserName(userName);
                         message = "Registered";
                     } else {
+                        passwordCheckFail=true;
                         message = "Confirm Password Failed";
+                        Toast.makeText(getApplicationContext(), "Registered!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    nullFlag=true;
                     message = "Enter all fields appropriately!";
                 }
-
 
                 if(nullFlag==false && passwordCheckFail==false){
                     GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
@@ -82,20 +94,24 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Already Registered, Please Login!", Toast.LENGTH_SHORT).show();
                                 System.out.println("ALREADY REGISTERED");
                                 message="ALREADY REGISTERED";
+                                Intent loginNow= new Intent(Register.this,Login.class);
+                                startActivity(loginNow);
+                                finish();
                             }
                             else {
 //                            registerUser.setUserId("userId");
                                 System.out.println("REGISTERED");
                                 Toast.makeText(getApplicationContext(), "Registered!", Toast.LENGTH_SHORT).show();
                                 message="Registered Successfully!";
-
+                                Intent loginNow= new Intent(Register.this,Login.class);
+                                startActivity(loginNow);
+                                finish();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
                             System.out.println("Invalid Backend Response"+t.getMessage());
-
                         }
                     });
                 }
@@ -103,9 +119,7 @@ public class Register extends AppCompatActivity {
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.register_layout),
                         message, Snackbar.LENGTH_SHORT);
                 snackbar.show();
-                Intent loginNow= new Intent(Register.this,Login.class);
-                startActivity(loginNow);
-                finish();
+
             }
         });
     }

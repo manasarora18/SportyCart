@@ -30,6 +30,7 @@ public class OrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent checkOutIntent = new Intent(getApplicationContext(), CheckoutActivity.class);
                 startActivity(checkOutIntent);
+                finish();
 
             }
         });

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -73,7 +74,7 @@ public class Login extends AppCompatActivity {
         Intent loginIntent = getIntent();
         String cartEmpty = loginIntent.getStringExtra("CartPerson");
         if (cartEmpty != null) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout), "Login First to Order", Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout), "Login First to Order", Snackbar.LENGTH_LONG);
             snackbar.show();
             cartValue = loginIntent.getStringExtra("GuestUserId");
             sp = getSharedPreferences("LoginData", MODE_PRIVATE);
@@ -102,12 +103,17 @@ public class Login extends AppCompatActivity {
                 loginButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        InputMethodManager inputManager = (InputMethodManager)
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
                         EditText user = findViewById(R.id.username);
                         EditText pass = findViewById(R.id.password);
                         final String user1 = String.valueOf(user.getText());
                         final String pw = String.valueOf(pass.getText());
                         if (user1.length() == 0 || pw.length() == 0) {
-                            Toast.makeText(getBaseContext(), "Enter Login Details", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Enter Login Details", Toast.LENGTH_SHORT).show();
                         } else {
                             registerUser.setEmail(user1);
                             registerUser.setPassword(pw);
@@ -118,38 +124,41 @@ public class Login extends AppCompatActivity {
                                 public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
                                     accessTokenDTO = response.body();
                                     sp = getSharedPreferences("LoginData", MODE_PRIVATE);
-
-                                    if (accessTokenDTO.getCheck()) {
-                                        System.out.println(accessTokenDTO.getCheck() + "CHECK");
-                                        System.out.println("LOGIN DONE");
-                                        String userId = accessTokenDTO.getUserId();
-                                        SharedPreferences.Editor editor = sp.edit();
-                                        editor.putString("UserId", userId).apply();
-                                        String email = registerUser.getEmail();
-                                        editor.putString("Email", email).apply();
-                                        editor.putString("LoginCheck", "true").apply();
-                                        editor.commit();
-                                        Intent loginIntent = new Intent(Login.this, MainActivity.class);
-                                        loginIntent.putExtra("GuestUserId", cartValue);
-                                        System.out.println("OnFailure CUSTOM LOGIN Success");
-                                        startActivity(loginIntent);
-                                        finish();
-                                    } else {
-                                        Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout), "Invalid Login Details", Snackbar.LENGTH_LONG);
-                                        snackbar.show();
-                                        System.out.println("OnResponse CUSTOM LOGIN PW MISMATCH" + accessTokenDTO.getCheck());
+                                    if(accessTokenDTO!=null) {
+                                        if (accessTokenDTO.getCheck()) {
+                                            System.out.println(accessTokenDTO.getCheck() + "CHECK");
+                                            System.out.println("LOGIN DONE");
+                                            String userId = accessTokenDTO.getUserId();
+                                            SharedPreferences.Editor editor = sp.edit();
+                                            editor.putString("UserId", userId).apply();
+                                            String email = registerUser.getEmail();
+                                            editor.putString("Email", email).apply();
+                                            editor.putString("LoginCheck", "true").apply();
+                                            editor.commit();
+                                            Intent loginIntent = new Intent(Login.this, MainActivity.class);
+                                            loginIntent.putExtra("GuestUserId", cartValue);
+                                            System.out.println("OnFailure CUSTOM LOGIN Success");
+                                            startActivity(loginIntent);
+                                            finish();
+                                        } else {
+                                            Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout), "Invalid Login Details", Snackbar.LENGTH_LONG);
+                                            snackbar.show();
+                                            System.out.println("OnResponse CUSTOM LOGIN PW MISMATCH" + accessTokenDTO.getCheck());
+                                        }
+                                    }
+                                    else{
+                                        Toast.makeText(getApplicationContext(),"No AccessToken Received from Backend!",Toast.LENGTH_LONG).show();
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
                                     Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
-                                            t.getMessage(), Snackbar.LENGTH_SHORT);
+                                            t.getMessage(), Snackbar.LENGTH_LONG);
                                     snackbar.show();
                                     System.out.println("OnFailure CUSTOM LOGIN" + t.getMessage());
                                 }
                             });
-//                        Toast.makeText(getApplicationContext(), "Sorry! Wrong user", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -246,18 +255,22 @@ public class Login extends AppCompatActivity {
                         call.enqueue(new Callback<AccessTokenDTO>() {
                             @Override
                             public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
-                                String userId = response.body().getUserId();
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putString("UserId", userId).apply();
-                                editor.putString("Email", finalEmail).apply();
-                                editor.putString("LoginCheck", "true").apply();
-                                editor.commit();
-                                System.out.println("OnResponse FB LOGIN Success");
-                                Intent facebookSignInIntent = new Intent(Login.this, MainActivity.class);
-                                startActivity(facebookSignInIntent);
-                                finish();
+                                if(response.body()!=null) {
+                                    String userId = response.body().getUserId();
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putString("UserId", userId).apply();
+                                    editor.putString("Email", finalEmail).apply();
+                                    editor.putString("LoginCheck", "true").apply();
+                                    editor.commit();
+                                    System.out.println("OnResponse FB LOGIN Success");
+                                    Intent facebookSignInIntent = new Intent(Login.this, MainActivity.class);
+                                    startActivity(facebookSignInIntent);
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(),"AccessToken FB Not Received",Toast.LENGTH_SHORT).show();
+                                }
                             }
-
                             @Override
                             public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
                                 System.out.println("OnFailure FB LOGIN" + t.getMessage());
@@ -267,13 +280,13 @@ public class Login extends AppCompatActivity {
                 });
                 graphRequest.executeAsync();
             }
-
             @Override
             public void onCancel() {
+                Toast.makeText(getApplicationContext(),"CANCELLED FB LOGIN",Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(),"Error on Facebook Login",Toast.LENGTH_SHORT);
             }
         });
     }
