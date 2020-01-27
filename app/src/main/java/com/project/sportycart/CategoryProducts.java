@@ -44,19 +44,15 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
         setContentView(R.layout.activity_category_products);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-//        System.out.println("IN CATEGORY");
         list = new ArrayList<>();
         Intent intent=getIntent();
         categoryId=intent.getIntExtra("categoryId",3);
         System.out.println("InCategory:"+categoryId);
-
         categoryRecyclerView=findViewById(R.id.cat_recycler_view);
         gridLayoutManager=new GridLayoutManager(getApplicationContext(),2);
         categoryRecyclerView.setLayoutManager(gridLayoutManager);
-
         categoryAdapter = new CategoryAdapter(CategoryProducts.this, list, CategoryProducts.this);
         categoryRecyclerView.setAdapter(categoryAdapter);
-
         categoryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -68,7 +64,6 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
                     page++;
                     apiCall(page,size);
                 }
-
             }
         });
 
@@ -76,27 +71,24 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
 
     }
 
-
     private void apiCall(int page,int size){
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Call<CategoryPageResponse> call= getProductsService.getCategoryProducts(categoryId,page,size);
         call.enqueue(new Callback<CategoryPageResponse>() {
             @Override
             public void onResponse(Call<CategoryPageResponse> call, Response<CategoryPageResponse> response) {
-//                list = response.body().getContent();
                 int length = list.size();
                 list.addAll(response.body().getContent());
                 totalPages =  response.body().getTotalPages();
-//                categoryAdapter=new CategoryAdapter(CategoryProducts.this,list,CategoryProducts.this);
-//                categoryRecyclerView.setAdapter(categoryAdapter);
                 progressBar.setVisibility(View.INVISIBLE);
                 categoryAdapter.notifyItemRangeInserted(length,response.body().getContent().size());
-                System.out.println("API HIT");
+                System.out.println("OnResponse CategoryProducts");
             }
 
             @Override
             public void onFailure(Call<CategoryPageResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                System.out.println("OnFailure CategoryProducts"+t.getMessage());
             }
         });
     }
@@ -118,5 +110,4 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
         }
         startActivity(productIntent);
     }
-
 }

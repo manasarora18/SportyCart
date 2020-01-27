@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences sharedPreferences;
     private HomeAdapter.ProductCommunication productCommunication;
     // this is manas branch
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -60,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if(response.body()==true){
                         Toast.makeText(getApplicationContext(),"SuccessRedirect",Toast.LENGTH_SHORT).show();
+                        System.out.println("OnResponse updateUserLogin/GuestUserLogin");
                         Intent cartRedirect=new Intent(MainActivity.this,ViewCartActivity.class);
                         startActivity(cartRedirect);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
-
+                    System.out.println("OnFailure updateUserLogin/GuestUserLogin"+t.getMessage());
                 }
             });
         }
@@ -105,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Intent cartIntent=new Intent(getApplicationContext(), ViewCartActivity.class);
                 startActivity(cartIntent);
-                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
-                        "CART EMPTY", Snackbar.LENGTH_SHORT);
-                mySnackbar.show();
+//                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.drawer_layout),
+//                        "CART EMPTY", Snackbar.LENGTH_SHORT);
+//                mySnackbar.show();
             }
         });
 
@@ -121,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(searchIntent);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -140,15 +140,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
-                System.out.println("OnFailure getAllProducts");
-
+                System.out.println("OnFailure getAllProducts"+t.getMessage());
             }
         });
     }
 
     private void generateDataList(List<Product> list){
         recyclerView=findViewById(R.id.my_recycler_view);
-//        Product product;
         if(list!=null) {
             for (Product product : list) {
                 ProductCollection.add(product);
