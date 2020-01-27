@@ -1,5 +1,6 @@
 package com.project.sportycart;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class ViewCartActivity extends AppCompatActivity implements CartAdapter.I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_view_cart);
         recyclerView = findViewById(R.id.recycler_view);
         cartLayoutManager = new LinearLayoutManager(this);
