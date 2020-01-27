@@ -107,11 +107,11 @@ public class CategoryProducts extends AppCompatActivity implements CategoryAdapt
         productIntent.putExtra("Image", product.getImageUrl());
         productIntent.putExtra("ProductName",product.getName());
         productIntent.putExtra(("ProductDescription"),(String)product.getDescription());
+        productIntent.putExtra(("PID"),product.getProductId());
         if(product.getProductAttributes()!=null) {
             productIntent.putExtra(("ColorAttribute"), (String) product.getProductAttributes().getColor());
-//            productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
-//            productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
-            productIntent.putExtra(("PID"),product.getProductId());
+            productIntent.putExtra(("SizeAttribute"), (String) product.getProductAttributes().getSize());
+            productIntent.putExtra(("MaterialAttribute"), (String) product.getProductAttributes().getMaterial());
         }
         else{
             Toast.makeText(getApplicationContext(),"CATEGORY PRODUCT",Toast.LENGTH_SHORT).show();

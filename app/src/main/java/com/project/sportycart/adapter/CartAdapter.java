@@ -126,6 +126,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 notifyItemChanged(model);
                 notifyItemRangeChanged(0, getItemCount() + 1);
                 notifyItemRangeRemoved(getItemCount() + 1, prevSize);
+                iCartCommunicator.removeFromCart(dataItem.getMerchantId(), dataItem.getProductId());
 
             }
         });

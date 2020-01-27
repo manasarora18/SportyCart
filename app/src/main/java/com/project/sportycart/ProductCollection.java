@@ -1,9 +1,9 @@
 package com.project.sportycart;
 
-import com.project.sportycart.entity.Cart;
 import com.project.sportycart.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
+
 public class ProductCollection {
     private static int counter;
     private static List<Product> productList=new ArrayList<>();

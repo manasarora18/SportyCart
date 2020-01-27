@@ -26,7 +26,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class ProductDetails extends AppCompatActivity implements ProductAdapter.MerchantDetailsInterface {
     private RecyclerView mercRecyclerView;
     private SharedPreferences sharedPreferences;
@@ -44,7 +43,12 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
 
         String imageUrl = productIntent.getStringExtra("Image");
         PhotoView imageView =findViewById(R.id.productimage);
-        Picasso.with(getBaseContext()).load(imageUrl).into(imageView);
+        if(imageUrl!=null) {
+            Picasso.with(getBaseContext()).load(imageUrl).into(imageView);
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"PHOTO PATH NOT SPECIFIED",Toast.LENGTH_SHORT).show();
+        }
 
         String productName = productIntent.getStringExtra("ProductName");
         TextView title = findViewById(R.id.title);
@@ -66,7 +70,6 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
         TextView materialText = findViewById(R.id.materialAttribute);
         materialText.setText(material);
         pid = productIntent.getStringExtra("PID");
-//        System.out.println("PID"+pid);
 
 
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
@@ -118,6 +121,5 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
                 System.out.println("FAILED A CALL");
             }
         });
-
     }
 }

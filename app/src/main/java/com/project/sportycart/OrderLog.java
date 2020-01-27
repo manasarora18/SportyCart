@@ -43,7 +43,6 @@ public class OrderLog extends AppCompatActivity implements OrderLogAdapter.IOrde
         sharedPreferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("UserId", "");
 
-
         Call<List<OrderTable>> callOrderList = getOrderApis.getRecentOrders(userId);//userId
         callOrderList.enqueue(new Callback<List<OrderTable>>() {
             @Override
@@ -57,9 +56,7 @@ public class OrderLog extends AppCompatActivity implements OrderLogAdapter.IOrde
                     for (OrderTable orderTable : orderTableList) {
                         OrderCollection.add(orderTable);
                     }
-
                 }
-
                 System.out.println("Order Log OnResponse");
             }
 
@@ -70,7 +67,6 @@ public class OrderLog extends AppCompatActivity implements OrderLogAdapter.IOrde
 
             }
         });
-
     }
 
     @Override
