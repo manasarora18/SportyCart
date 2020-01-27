@@ -7,6 +7,7 @@ import com.project.sportycart.entity.MerchantDetails;
 import com.project.sportycart.entity.OrderTable;
 import com.project.sportycart.entity.Product;
 import com.project.sportycart.entity.RegisterUser;
+import com.project.sportycart.entity.UserDTO;
 import com.project.sportycart.entity.UserLog;
 
 import java.util.List;
@@ -48,10 +49,9 @@ public interface GetProductsService {
     @POST("/order-service/cart/updateUserOnLogin/{guestUserId}/{userId}")
     Call<Boolean> updateUserLogin(@Path("guestUserId")String guestUserId, @Path("userId")String userId);
 
-    @GET("/orderLog")
-    Call<List<OrderTable>> getOrderLog(RegisterUser registerUser);
+    @GET("/login-service/loginLog/{userId}")
+    Call<List<UserLog>>getLoginLog(@Path("userId") String userId);
 
-    @GET("/loginLog")
-    Call<List<UserLog>>getLoginLog(RegisterUser registerUser);
-
+    @GET("/login-service/profile/{userId}")
+    Call<UserDTO> getUserProfile(@Path("userId") String userId);
 }

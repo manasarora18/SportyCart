@@ -3,7 +3,8 @@
 
     <item android:title="@string/profile">
         <menu>
-            <item android:title="@string/my_details"/>
+            <item android:title="@string/my_details"
+                android:id="@+id/details_nav_menu"/>
             <item android:title="@string/my_orders"
                 android:id="@+id/order_nav_menu"/>
 
