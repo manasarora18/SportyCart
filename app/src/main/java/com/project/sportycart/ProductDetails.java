@@ -3,14 +3,12 @@ package com.project.sportycart;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.adapter.ProductAdapter;
@@ -19,9 +17,7 @@ import com.project.sportycart.entity.MerchantDetails;
 import com.project.sportycart.retrofit.GetProductsService;
 import com.project.sportycart.retrofit.RetrofitClientInstance;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,7 +67,6 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
         materialText.setText(material);
         pid = productIntent.getStringExtra("PID");
 
-
         GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
         Call<List<MerchantDetails>> call = getProductsService.getMerchantDetails(pid);
         call.enqueue(new Callback<List<MerchantDetails>>() {
@@ -83,11 +78,13 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
                 mercRecyclerView.setLayoutManager(gridLayoutManager);
                 mercRecyclerView.setAdapter(productAdapter);
+                System.out.println("OnResponse ProductDetails");
             }
 
             @Override
             public void onFailure(Call<List<MerchantDetails>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
+                System.out.println("OnFailure ProductDetails"+t.getMessage());
             }
         });
     }
@@ -112,13 +109,13 @@ public class ProductDetails extends AppCompatActivity implements ProductAdapter.
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.product_details_layout),
                         "Added to Cart", Snackbar.LENGTH_SHORT);
                 snackbar.show();
-                System.out.println("MADE A CALL");
+                System.out.println("OnResponse AddtoCart");
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(ProductDetails.this, t.getMessage(), Toast.LENGTH_SHORT);
-                System.out.println("FAILED A CALL");
+                System.out.println("OnFailure AddtoCart"+t.getMessage());
             }
         });
     }

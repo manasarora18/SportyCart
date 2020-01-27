@@ -48,10 +48,9 @@ public interface GetProductsService {
     @POST("/order-service/cart/updateUserOnLogin/{guestUserId}/{userId}")
     Call<Boolean> updateUserLogin(@Path("guestUserId")String guestUserId, @Path("userId")String userId);
 
-    @GET("/orderLog")
-    Call<List<OrderTable>> getOrderLog(RegisterUser registerUser);
-
     @GET("/loginLog")
     Call<List<UserLog>>getLoginLog(RegisterUser registerUser);
 
 }
+
+//  /login-service
