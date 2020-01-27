@@ -16,3 +16,5 @@ public class RetrofitClientInstance {
         return retrofit;
     }
 }
+
+//http://172.16.20.131:8082

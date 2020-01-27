@@ -44,11 +44,14 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     private RegisterUser registerUser = new RegisterUser();
+    Boolean facebookLoginCheck=false;
     private Context context;
     private AccessTokenDTO accessTokenDTO;
     private GoogleSignInClient mGoogleSignInClient;
+    private LoginButton facebookloginButton;
     private GoogleSignInOptions gso;
     private int RC_SIGN_IN;
+    private CallbackManager callbackManager;
 
     private String cartValue="";
     String TAG = "logCheck";
@@ -183,14 +186,14 @@ public class Login extends AppCompatActivity {
             }
         });
 
-//        //FACEBOOK LOGIN
-//        facebookloginButton=findViewById(R.id.facebook_login_button);
-//        facebookloginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LogIn();
-//            }
-//        });
+        //FACEBOOK LOGIN
+        facebookloginButton=findViewById(R.id.facebook_login_button);
+        facebookloginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogIn();
+            }
+        });
 
 
         //SKIP LOGIN
@@ -219,85 +222,91 @@ public class Login extends AppCompatActivity {
         });
     }
     //FACEBOOK LOGIN PART2
-//    private void LogIn(){
-//        callbackManager=CallbackManager.Factory.create();
-//        LoginManager.getInstance().logInWithReadPermissions(Login.this, Arrays.asList("email"));
-//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                final AccessToken accessToken=loginResult.getAccessToken();
-//                final String[] fb_email=new String[1];
-//                Bundle bundle=new Bundle();
-//                bundle.putString("fields","id,email,name");
-//                GraphRequest graphRequest= new GraphRequest(loginResult.getAccessToken(), "me", bundle, null, new GraphRequest.Callback() {
-//                    @Override
-//                    public void onCompleted(GraphResponse response) {
-//                        String email="";
-//                        try{
-//                            System.out.println("EMAIL FB"+response.getJSONObject().getString("email"));
-//                            email=response.getJSONObject().getString("email");
-//                            System.out.println("NAME FB"+response.getJSONObject().getString("name"));
-//                        }
-//                        catch (JSONException e){
-//                            e.printStackTrace();
-//                        }
-//                        String idTokenFB=accessToken.getToken();
-//                        System.out.println(idTokenFB);
-//                        Bundle parameters = new Bundle();
-//                        parameters.putString("fields","first_name,last_name,email,id");
-//                        GetProductsService getProductsService=RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
-//                        Call<AccessTokenDTO>call=getProductsService.sendFacebookLogin(idTokenFB);
-//                        final String finalEmail = email;
-//                        call.enqueue(new Callback<AccessTokenDTO>() {
-//                            @Override
-//                            public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
-//                                String userId=response.body().getUserId();
-//                                SharedPreferences.Editor editor=sp.edit();
-//                                editor.putString("UserId",userId).apply();
-//                                editor.putString("Email", finalEmail).apply();
-//                                editor.putString("LoginCheck","true").apply();
-//                                editor.commit();
-//                                System.out.println("FB REGISTERED");
-//                                Intent facebookSignInIntent=new Intent(Login.this,MainActivity.class);
-//                                startActivity(facebookSignInIntent);
-//                                finish();
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
-//                                System.out.println("FAILED FB"+t.getMessage());
-//                            }
-//                        });
-//                    }
-//                });
-//                graphRequest.executeAsync();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//            }
-//        });
-//
-//    }
+    private void LogIn(){
+        facebookLoginCheck=true;
+        callbackManager=CallbackManager.Factory.create();
+        LoginManager.getInstance().logInWithReadPermissions(Login.this, Arrays.asList("email"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                final AccessToken accessToken=loginResult.getAccessToken();
+                final String[] fb_email=new String[1];
+                Bundle bundle=new Bundle();
+                bundle.putString("fields","id,email,name");
+                GraphRequest graphRequest= new GraphRequest(loginResult.getAccessToken(), "me", bundle, null, new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        String email="";
+                        try{
+                            System.out.println("EMAIL FB"+response.getJSONObject().getString("email"));
+                            email=response.getJSONObject().getString("email");
+                            System.out.println("NAME FB"+response.getJSONObject().getString("name"));
+                        }
+                        catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                        String idTokenFB=accessToken.getToken();
+                        System.out.println(idTokenFB);
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields","first_name,last_name,email,id");
+                        GetProductsService getProductsService=RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
+                        Call<AccessTokenDTO>call=getProductsService.sendFacebookLogin(idTokenFB);
+                        final String finalEmail = email;
+                        call.enqueue(new Callback<AccessTokenDTO>() {
+                            @Override
+                            public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
+                                String userId=response.body().getUserId();
+                                SharedPreferences.Editor editor=sp.edit();
+                                editor.putString("UserId",userId).apply();
+                                editor.putString("Email", finalEmail).apply();
+                                editor.putString("LoginCheck","true").apply();
+                                editor.commit();
+                                System.out.println("FB REGISTERED");
+                                Intent facebookSignInIntent=new Intent(Login.this,MainActivity.class);
+                                startActivity(facebookSignInIntent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<AccessTokenDTO> call, Throwable t) {
+                                System.out.println("FAILED FB"+t.getMessage());
+                            }
+                        });
+                    }
+                });
+                graphRequest.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+            }
+        });
+
+    }
 
     //GOOGLE LOGIN PART 2
     private void signIn() {
+        facebookLoginCheck=false;
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        callbackManager.onActivityResult(requestCode,resultCode,data);
-        super.onActivityResult(requestCode, resultCode, data);
+        if(facebookLoginCheck) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            if (requestCode == RC_SIGN_IN) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+            }
         }
     }
 
