@@ -15,6 +15,7 @@ import com.project.sportycart.R;
 import com.project.sportycart.entity.OrderTable;
 import com.project.sportycart.entity.Product;
 import java.util.List;
+
 public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderViewHolder> {
     static List<OrderTable> list;
     public IOrderCommunicator iOrderCommunicator;
@@ -23,6 +24,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         this.list = List;
         this.iOrderCommunicator = iOrderCommunicator;
     }
+
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,6 +33,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         OrderViewHolder viewHolder = new OrderViewHolder(listItem);
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         final OrderTable orderTable = list.get(position);
@@ -77,6 +80,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
             }
         });
     }
+
     @Override
     public int getItemCount() {
         if (list != null)
@@ -84,6 +88,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
         else
             return 0;
     }
+
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         public TextView orderId;
         public RatingBar ratingBar;
@@ -105,6 +110,7 @@ public class OrderLogAdapter extends RecyclerView.Adapter<OrderLogAdapter.OrderV
             submitRating = (Button) itemView.findViewById(R.id.submitRating);
         }
     }
+
     public interface IOrderCommunicator {
         boolean setRating(String orderId, String productId, String merchantId, String userId, double rating);
     }
