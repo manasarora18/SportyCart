@@ -77,6 +77,10 @@ public class Login extends AppCompatActivity {
             Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout), "Login First to Order", Snackbar.LENGTH_SHORT);
             snackbar.show();
             cartValue=loginIntent.getStringExtra("GuestUserId");
+            sp=getSharedPreferences("LoginData",MODE_PRIVATE);
+            SharedPreferences.Editor editor=sp.edit();
+            editor.putString("User","").apply();
+            editor.commit();
         }
 
         //REGISTER

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.project.sportycart.entity.AccessTokenDTO;
 import com.project.sportycart.entity.RegisterUser;
@@ -22,6 +24,7 @@ public class Register extends AppCompatActivity {
     private EditText registerPassword;
     private EditText registerConfirmPassword;
     private EditText registerPhone;
+    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,44 +34,43 @@ public class Register extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUsername=findViewById(R.id.registerusername);
-                String userName=registerUsername.getText().toString();
+                registerUsername = findViewById(R.id.registerusername);
+                String userName = registerUsername.getText().toString();
 
-                registerEmail=findViewById(R.id.registeremail);
-                String email=registerEmail.getText().toString();
+                registerEmail = findViewById(R.id.registeremail);
+                String email = registerEmail.getText().toString();
 
-                registerPassword=findViewById(R.id.registerpassword);
-                String password=registerPassword.getText().toString();
+                registerPassword = findViewById(R.id.registerpassword);
+                String password = registerPassword.getText().toString();
 
-                registerConfirmPassword=findViewById(R.id.registerconfirmpassword);
-                String confirmPassword=registerConfirmPassword.getText().toString();
+                registerConfirmPassword = findViewById(R.id.registerconfirmpassword);
+                String confirmPassword = registerConfirmPassword.getText().toString();
 
-                registerPhone=findViewById(R.id.registerphone);
-                long phone=Long.parseLong(String.valueOf(registerPhone.getText()));
+                registerPhone = findViewById(R.id.registerphone);
+                long phone = Long.parseLong(String.valueOf(registerPhone.getText()));
 
 //                System.out.println(userName+email+password+confirmPassword+phone);
 
-                Boolean nullFlag=true;
-                Boolean passwordCheckFail=true;
-                String message;
+                Boolean nullFlag = true;
+                Boolean passwordCheckFail = true;
+//                String message;
 
-                if(userName!= null && email!=null && password!=null && confirmPassword!=null && phone!=0){
-                    nullFlag=false;
-                    if(confirmPassword.equals(password)){
-                        passwordCheckFail=false;
+                if (userName != null && email != null && password != null && confirmPassword != null && phone != 0) {
+                    nullFlag = false;
+                    if (confirmPassword.equals(password)) {
+                        passwordCheckFail = false;
                         registerUser.setEmail(email);
                         registerUser.setPassword(password);
                         registerUser.setPhoneNo(phone);
                         registerUser.setUserName(userName);
-                        message="Registered";
+                        message = "Registered";
+                    } else {
+                        message = "Confirm Password Failed";
                     }
-                    else{
-                        message="Confirm Password Failed";
-                    }
+                } else {
+                    message = "Enter all fields appropriately!";
                 }
-                else{
-                    message="Enter all fields appropriately!";
-                }
+
 
                 if(nullFlag==false && passwordCheckFail==false){
                     GetProductsService getProductsService = RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
@@ -76,8 +78,18 @@ public class Register extends AppCompatActivity {
                     call.enqueue(new Callback<AccessTokenDTO>() {
                         @Override
                         public void onResponse(Call<AccessTokenDTO> call, Response<AccessTokenDTO> response) {
+                            if (response.body().getCheck() == false) {
+                                Toast.makeText(getApplicationContext(), "Already Registered, Please Login!", Toast.LENGTH_SHORT).show();
+                                System.out.println("ALREADY REGISTERED");
+                                message="ALREADY REGISTERED";
+                            }
+                            else {
 //                            registerUser.setUserId("userId");
-                            System.out.println("REGISTERED");
+                                System.out.println("REGISTERED");
+                                Toast.makeText(getApplicationContext(), "Registered!", Toast.LENGTH_SHORT).show();
+                                message="Registered Successfully!";
+
+                            }
                         }
 
                         @Override

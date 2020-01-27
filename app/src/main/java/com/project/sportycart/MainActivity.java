@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent loginIntent = getIntent();
         String cartValue=loginIntent.getStringExtra("GuestUserId");
         if(cartValue!=""){
+
             GetProductsService getProductsService=RetrofitClientInstance.getRetrofitInstance().create(GetProductsService.class);
             Call<Boolean>call=getProductsService.updateUserLogin(cartValue,UserId);
             call.enqueue(new Callback<Boolean>() {
